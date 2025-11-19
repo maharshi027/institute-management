@@ -1,0 +1,30 @@
+:root {
+  --bg-color: #F5F7FB;
+  --box-color: #FFFFFF;
+  --text-color: #33394C;
+
+  --primary-1: #4E7CFF;
+  --primary-2: #7033FF;
+  --primary-3: #F65164;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+}
+body{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-color);
+}
+.btn{
+  background-color: var(--primary-3);
+  padding: 10px;
+  width: 80%;
+  color: #fff;
+  border-radius: 10px;
+  height: 45px;
+  font-size: 15px;
+}
