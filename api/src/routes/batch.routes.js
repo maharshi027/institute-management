@@ -41,7 +41,7 @@ router.post(
     } catch (error) {
       return res.status(500).json({
         msg: "Server error",
-        error: error.message,
+        error: error.message
       });
     }
   }
