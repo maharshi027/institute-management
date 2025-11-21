@@ -11,16 +11,17 @@ router.post(
   verifyJWT,
   upload.single("thumbnail"),
   async (req, res) => {
+    
+    const { batchName, price, description, startingDate, endDate } = req.body;
+    const thumbnailPath = req.file?.path
+    if (!thumbnailPath) {
+      return res.status(400).json({ msg: "Thumbnail is required" });
+    }
+    
     try {
-      const { batchName, price, description, startingDate, endDate } = req.body;
-
-      if (!req.file) {
-        return res.status(400).json({ msg: "Thumbnail is required" });
-      }
-
     //-------------------------------- upload to cloudinary Image(Thumbnail) ------------------------------
 
-      const thumbnailUrl = await uploadToCloudinary(req.file.path);
+      const uploaded = await uploadToCloudinary(thumbnailPath);
 
       const newBatch = new Batch({
         batchName,
@@ -28,7 +29,8 @@ router.post(
         description,
         startingDate,
         endDate,
-        thumbnailUrl,
+        thumbnailUrl: uploaded.url,
+        imageId: uploaded.imageId,
         userId: req.user.userId,
       });
 
