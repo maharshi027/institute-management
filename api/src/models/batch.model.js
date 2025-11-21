@@ -6,8 +6,9 @@ const batchSchema = new Schema({
   description: { type: String, required: true },
   startingDate: { type: String, required: true },
   endDate: { type: String, required: true },
-  thumbnailUrl: { type: String, required: true },
-  userId: { type: String, required: true }
+  thumbnailUrl: { type: String, required: true }, 
+  imageId: { type: String, required: true },       
+  userId: { type: Schema.Types.ObjectId, ref: "User" }
 });
 
 export const Batch = mongoose.model("Batch", batchSchema);
