@@ -6,11 +6,8 @@ import { deleteFromCloudinary, uploadToCloudinary } from "../utils/cloudinary.js
 import { Long } from "mongodb";
 
 const router = Router();
-router.post(
-  "/add-batches",
-  verifyJWT,
-  upload.single("thumbnail"),
-  async (req, res) => {
+
+router.post("/add-batches", verifyJWT, upload.single("thumbnail"), async (req, res) => {
     const { batchName, price, description, startingDate, endDate } = req.body;
     const thumbnailPath = req.file?.path;
 
@@ -102,11 +99,7 @@ router.delete("/delete-batch/:id", verifyJWT, async (req, res) => {
   }
 });
 
-router.put(
-  "/:id",
-  verifyJWT,
-  upload.single("thumbnail"),
-  async (req, res) => {
+router.put("/:id",verifyJWT, upload.single("thumbnail"), async (req, res) => {
     const userId = req.user.userId;
 
     try {

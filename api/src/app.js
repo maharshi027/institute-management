@@ -4,6 +4,7 @@ import cors from "cors"
 
 import userRouter from "./routes/user.routes.js"
 import batchRouter from './routes/batch.routes.js'
+import studentRouter from './routes/student.routes.js'
 const app = express();
 
 app.use(cors({
@@ -18,5 +19,5 @@ app.use(cookieParser());
 // Routes
 app.use("/user", userRouter);
 app.use("/batch", batchRouter);
-
+app.use('/student', studentRouter)
 export { app };
