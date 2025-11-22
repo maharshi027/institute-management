@@ -3,6 +3,7 @@ import { verifyJWT } from "../middleware/auth.middleware.js";
 import { Batch } from "../models/batch.model.js";
 import { upload } from "../middleware/multer.middleware.js";
 import { deleteFromCloudinary, uploadToCloudinary } from "../utils/cloudinary.js";
+import { Long } from "mongodb";
 
 const router = Router();
 router.post(
@@ -100,5 +101,74 @@ router.delete("/delete-batch/:id", verifyJWT, async (req, res) => {
     });
   }
 });
+
+router.put(
+  "/:id",
+  verifyJWT,
+  upload.single("thumbnail"),
+  async (req, res) => {
+    const userId = req.user.userId;
+
+    try {
+      const batch = await Batch.findById(req.params.id);
+
+      if (!batch) {
+        return res.status(404).json({ error: "Batch not found" });
+      }
+
+      // Ownership check
+      if (batch.userId.toString() !== userId) {
+        return res
+          .status(403)
+          .json({ error: "You are not allowed to update this batch" });
+      }
+
+      // ---------- Image update -------------
+      let thumbnailUrl = batch.thumbnailUrl;
+      let imageId = batch.imageId;
+
+      if (req.file) {
+        // console.log("New image updating...");
+
+        if (batch.imageId) {
+          await deleteFromCloudinary(batch.imageId);
+        }
+
+        // Upload new image
+        const uploaded = await uploadToCloudinary(req.file.path);
+        thumbnailUrl = uploaded.url;
+        imageId = uploaded.imageId;
+      }
+
+      // ---------- Update the details of the batchj -------------
+
+      const updatedData = {
+        batchName : req.body.batchName || batch.batchName,
+        price : req.body.price || batch.price,
+        description : req.body.description || batch.description,
+        startingDate : req.body.startingDate,
+        endDate : req.body.endDate,
+        thumbnailUrl : thumbnailUrl,
+        imageId : imageId
+      }
+
+      const updatedBatch = await Batch.findByIdAndUpdate(req.params.id, updatedData,
+       {
+         new : true
+       }
+      )
+
+      return res.status(200).json({
+        msg: "Batch updated successfully",
+        batch: updatedBatch,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        msg: "Server error",
+        error: err.message,
+      });
+    }
+  }
+);
 
 export default router;
