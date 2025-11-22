@@ -3,7 +3,7 @@ import { verifyJWT } from "../middleware/auth.middleware.js";
 import { Batch } from "../models/batch.model.js";
 import { upload } from "../middleware/multer.middleware.js";
 import { deleteFromCloudinary, uploadToCloudinary } from "../utils/cloudinary.js";
-import { Long } from "mongodb";
+import { Student } from "../models/student.model.js";
 
 const router = Router();
 
@@ -44,22 +44,38 @@ router.post("/add-batches", verifyJWT, upload.single("thumbnail"), async (req, r
   }
 );
 
+router.get("/batch-details", verifyJWT, async (req, res) => {
+  const userId = req.user.userId;
+
+  try {
+    const getAllBatch = await Batch.find({userId})
+    .select("_id userId batchName price description startingDate endDate thumbnailUrl imageId")
+    
+    return res.status(200).json({
+        batches: getAllBatch
+      });
+  } catch (err) {
+    res.status(500).json({
+      error: err
+    })
+  }
+
+});
+
 router.get("/batch-details/:id", verifyJWT, async (req, res) => {
   const userId = req.user.userId;
 
   try {
-    const batch = await Batch.findOne({
-      userId,
-      _id: req.params.id
-    }).select("_id userId batchName price description startingDate endDate thumbnailUrl imageId");
+    const batch = await Batch.findOne({ userId, _id: req.params.id})
+    .select("_id userId batchName price description startingDate endDate thumbnailUrl imageId");
 
     if (!batch) {
       return res.status(404).json({ msg: "Batch not found" });
     }
 
-    return res.status(200).json({
-      batch
-    });
+    const students = await Student.find({ batchId: req.params.id })
+
+    return res.status(200).json({ batch , studentList: students });
 
   } catch (err) {
     return res.status(500).json({
@@ -69,7 +85,7 @@ router.get("/batch-details/:id", verifyJWT, async (req, res) => {
   }
 });
 
-router.delete("/delete-batch/:id", verifyJWT, async (req, res) => {
+router.delete("/:id", verifyJWT, async (req, res) => {
   const userId = req.user.userId;
   const batchId = req.params.id;
 

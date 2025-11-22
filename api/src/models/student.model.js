@@ -7,8 +7,8 @@ const studentSchema = new Schema({
     address : {type: String, required: true},
     avatarUrl : {type: String, required: true},
     avatarId : {type: String, required: true},
-    userId : {type: String, ref : "User"},
-    batchId : {type: Schema.Types.ObjectId, ref: "Batch"}
+    userId : {type: String, required: true},
+    batchId : {type: String, required: true}
 },
 {timestamps: true}
 )
