@@ -1,5 +1,4 @@
-import express from "express";
-import mongoose from "mongoose";
+
 import { uploadToCloudinary , deleteFromCloudinary} from "../utils/cloudinary.js";
 import { Router } from "express";
 import { verifyJWT } from "../middleware/auth.middleware.js";
