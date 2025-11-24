@@ -2,17 +2,22 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./signup.css";
 import signupImg from "../../assets/signupImg.jpg";
-import {Circles} from "react-loading-icons";
+import { Circles } from "react-loading-icons";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const [instituteName, setInstituteName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
   const submitHandler = async (event) => {
     event.preventDefault();
-
+    setLoading(true);
     const formData = new FormData();
     formData.append("instituteName", instituteName);
     formData.append("email", email);
@@ -24,7 +29,9 @@ const Signup = () => {
         "http://localhost:4000/user/signup",
         formData
       );
-
+      setLoading(false);
+      toast.success("Congrats ! Registred succeefully...");
+      navigate("/login");
       console.log(res.data);
 
       // Reset fields
@@ -32,8 +39,9 @@ const Signup = () => {
       setEmail("");
       setPhone("");
       setPassword("");
-
     } catch (error) {
+      setLoading(true);
+      toast.error("Something went wrong...");
       console.error("Signup Error:", error);
     }
   };
@@ -51,15 +59,25 @@ const Signup = () => {
           <form onSubmit={submitHandler} className="signup-form">
             <h1>Create Your Account</h1>
             <hr />
-
             <input
               value={instituteName}
               onChange={(e) => setInstituteName(e.target.value)}
               type="text"
-              placeholder="Institute Name..."
+              placeholder="Institution Name..."
+              list="institutions" 
               required
             />
-
+            
+            <datalist id="institutions">
+              <option value="Allen Career Institute" />
+              <option value="Resonance Kota" />
+              <option value="Aakash Institute" />
+              <option value="FIITJEE" />
+              <option value="BYJU's Learning Centre" />
+              <option value="Unacademy Centre" />
+              <option value="Narayan Institute" />
+              <option value="Bansal Classes" />
+            </datalist>
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -67,7 +85,6 @@ const Signup = () => {
               placeholder="Enter your Email"
               required
             />
-
             <input
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
@@ -75,7 +92,6 @@ const Signup = () => {
               placeholder="Enter Your Phone Number"
               required
             />
-
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -83,9 +99,8 @@ const Signup = () => {
               placeholder="Enter Password"
               required
             />
-
             <button className="btn" type="submit">
-              {loading && <Circles className="loading"/>} submit
+              {loading && <Circles className="loading" />} submit
             </button>
           </form>
         </div>

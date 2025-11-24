@@ -5,7 +5,6 @@ import { app } from "./app.js";
 dotenv.config({
   path: './.env'
 });
-// console.log(process.env.CLOUDINARY_API_KEY);
 
 mongoose.connect('mongodb+srv://albatross25:Kirti123@cluster1.r1jemfh.mongodb.net/?appName=Cluster1')
   .then(() => console.log(" Database Connected"))

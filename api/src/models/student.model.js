@@ -9,6 +9,7 @@ const studentSchema = new Schema({
     avatarId : {type: String, required: true},
     userId : {type: String, required: true},
     batchId : {type: String, required: true}
+
 },
 {timestamps: true}
 )
