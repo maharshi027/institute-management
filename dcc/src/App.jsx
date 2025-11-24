@@ -9,7 +9,7 @@ import { ToastContainer } from 'react-toastify';
 const App = () => {
 
   const myRouter = createBrowserRouter([
-    {path: '/', element: <Signup/>},
+    {path: '/', element: <Login/>},
     { path: '/signup', element: <Signup /> },
     {path: '/login', element: <Login/>},
     {path: '/dashboard', element: <Dashboard/>}

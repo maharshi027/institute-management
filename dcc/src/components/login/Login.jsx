@@ -1,11 +1,85 @@
-import React from 'react'
+import React, { useState } from "react";
+import axios from "axios";
+import "./login.css";
+import loginImg from "../../assets/inst.jpg";
+import { Circles } from "react-loading-icons";
+import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  return (
-    <div>
-      Login Page
-    </div>
-  )
-}
+  const navigate = useNavigate();
 
-export default Login
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await axios.post("http://localhost:4000/user/login", {
+        email,
+        password,
+      });
+
+      setLoading(false);
+      toast.success("Welcome Back!");
+      navigate("/dashboard");
+
+      console.log(res.data);
+
+      // Reset inputs
+      setEmail("");
+      setPassword("");
+
+    } catch (error) {
+      setLoading(false);
+      toast.error("Invalid credentials!");
+      console.error("Login Error:", error);
+    }
+  };
+
+  return (
+    <div className="login-wrapper">
+      <div className="login-box">
+
+        <div className="login-left">
+          <img src={loginImg} alt="login" />
+          <h1>Institute Management App</h1>
+          <p>Learn to Earn...</p>
+        </div>
+
+        <div className="login-right">
+          <form onSubmit={submitHandler} className="login-form">
+            <h1>Login With Your Account</h1>
+            <hr />
+
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              placeholder="Enter your Email"
+              required
+            />
+
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="Enter Password"
+              required
+            />
+
+            <button className="btn" type="submit" disabled={loading}>
+              {loading ? <Circles className="loading" /> : "Submit"}
+            </button>
+            <Link className="link" to='/signup'>Create Your Account</Link>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Login;

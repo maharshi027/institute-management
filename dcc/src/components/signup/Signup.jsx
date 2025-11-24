@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./signup.css";
-import signupImg from "../../assets/signupImg.jpg";
+import signupImg from "../../assets/inst.jpg";
 import { Circles } from "react-loading-icons";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -102,6 +102,7 @@ const Signup = () => {
             <button className="btn" type="submit">
               {loading && <Circles className="loading" />} submit
             </button>
+            <Link className="link" to='/login'>Login</Link>
           </form>
         </div>
       </div>

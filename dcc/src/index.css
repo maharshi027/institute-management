@@ -27,13 +27,23 @@ body{
   align-items: center;
   color: #fff;
   border-radius: 10px;
-  height: 55px;
+  height: 45px;
   font-size: 20px;
   gap: 10px;
   border: none;
+}
+.btn:hover{
+  background-color : var(--primary-1);
+  transition: 1s;
+  cursor: pointer;
 }
 
 .loading {
   height: 24px;
   width: 24px;
+}
+.link{
+  color: var(--primary-2);
+  text-decoration: none;
+  margin-top: 15px;
 }
