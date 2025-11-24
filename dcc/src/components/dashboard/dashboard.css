@@ -42,7 +42,6 @@
     width: 50px;
     height: 50px;
     overflow: hidden;
-    /* background-color:#fff ; */
 }
 .profile-container{
     display: flex;
@@ -67,4 +66,80 @@
 }
 .logout-btn:hover{
     cursor: pointer;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ Side Bar ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.brand-title{
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+.brand-container{
+    height: 80px;
+    display: flex;
+    /* background-color: red; */
+    align-items: center;
+    gap: 10px;
+}
+.sidebar-logo{
+  width: 50px;
+  height: 50px;
+}
+
+.brand-name{
+    font-size: 18px;
+   color: #fff;
+   font-weight: 900;
+}
+.brand-para{
+    font-size: 12px;
+    color: yellow;
+    position: relative;
+    top: -10px;
+    font-weight: 500;
+}
+
+/* ------------ Menu Bar------------- */
+
+.menu-container{
+    display: flex;
+    flex-direction: column;
+    /* gap: 10px; */
+    /* justify-content: center; */
+    align-items: center;
+}
+.menu-link{
+    color: var(--box-color);
+    text-decoration: none;
+    font-size: 17px;
+    padding: 12px;
+    /* background-color: red; */
+    width: 90%;
+    border-radius: 5px;
+}
+
+.menu-link:hover{
+    background-color: rgba(28, 13, 61, 0.5);
+    transition: 0.5s;
+}
+.menu-icon{
+    margin-right: 10px !important;
+}
+
+.contact-us{
+    position: absolute;
+    bottom: 5vh;
+    color: var(--box-color);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: rgb(76, 24, 73);
+    margin-left: 10px;
+    font-weight: 700;
+}
+
+.contact-icon{
+    font-size: 18px;
+    margin: 0px 10px;
 }
