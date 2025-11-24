@@ -1,11 +1,23 @@
-import React from 'react'
-
+import React from "react";
+import "./dashboard.css";
+import { CgProfile } from "react-icons/cg";
 const Dashboard = () => {
   return (
-    <div>
-      Dashboard Page
+    <div className="dashboard-main-container">
+      <div className="dashboard-container">
+        <div className="nav-container"></div>
+        <div className="main-container">
+          <div className="top-bar">
+            <div className="logo-container"><CgProfile className="profile-logo" /></div>
+            <div className="profile-container">
+                <h2 className="profile-name">Dinesh Chemistry Classes</h2>
+                <button className="logout-btn">Logout</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
