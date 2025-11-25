@@ -1,7 +1,6 @@
 import React from 'react'
 import "./dashboard.css";
 import logo from '../../assets/logo.png'
-import { Link } from 'react-router-dom';
 import { ImHome } from "react-icons/im";
 import { FaBookReader } from "react-icons/fa";
 import { PiStudentFill } from "react-icons/pi";
@@ -12,8 +11,11 @@ import { HiDocumentCurrencyRupee } from "react-icons/hi2";
 import { IoIosLogOut } from "react-icons/io";
 import { BsFillTelephoneOutboundFill } from "react-icons/bs";
 import { RiContactsFill } from "react-icons/ri";
+import {Link, useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const location = useLocation();
+
   return (
     <>
       <div className="brand-container">
@@ -24,13 +26,13 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="menu-container">
-        <Link className="menu-link" > <ImHome className='menu-icon'/>Home</Link>
-        <Link className="menu-link" > <FaBookReader className='menu-icon'/>All Batch</Link>
-        <Link className="menu-link" > <MdLibraryAdd className='menu-icon'/>Add Batches</Link>
-        <Link className="menu-link" > <PiStudentFill className='menu-icon'/>All Student</Link>
-        <Link className="menu-link" > <MdGroupAdd className='menu-icon'/>Add Student</Link>
-        <Link className="menu-link" > <HiDocumentCurrencyRupee className='menu-icon'/>Collect Fee</Link>
-        <Link className="menu-link" > <FaHistory className='menu-icon'/>Payment History</Link>
+        <Link className={location.pathname === '/dashboard/home' ?'menu-active-link' : "menu-link" } to='/dashboard/home'> <ImHome className='menu-icon'/>Home</Link>
+        <Link className={location.pathname === '/dashboard/batches' ?'menu-active-link' : "menu-link" } to='/dashboard/batches'> <FaBookReader className='menu-icon'/>All Batch</Link>
+        <Link className={location.pathname === '/dashboard/add-batch' ?'menu-active-link' : "menu-link" } to='/dashboard/add-batch'> <MdLibraryAdd className='menu-icon'/>Add Batches</Link>
+        <Link className={location.pathname === '/dashboard/students' ?'menu-active-link' : "menu-link" } to='/dashboard/students'> <PiStudentFill className='menu-icon'/>All Student</Link>
+        <Link className={location.pathname === '/dashboard/add-student' ?'menu-active-link' : "menu-link" } to='/dashboard/add-student'> <MdGroupAdd className='menu-icon'/>Add Student</Link>
+        <Link className={location.pathname === '/dashboard/collect-fee' ?'menu-active-link' : "menu-link" } to='/dashboard/collect-fee'> <HiDocumentCurrencyRupee className='menu-icon'/>Collect Fee</Link>
+        <Link className={location.pathname === '/dashboard/payment-history' ?'menu-active-link' : "menu-link" } to='/dashboard/payment-history'> <FaHistory className='menu-icon'/>Payment History</Link>
         <Link className="menu-link" to='/logout'> <IoIosLogOut className='menu-icon'/>Log out</Link>
       </div>
       <div className='contact-us'>

@@ -4,6 +4,11 @@ import { User } from "../models/user.model.js";
 import jwt from 'jsonwebtoken'
 const router = Router();
 const upload = multer();
+import dotenv from 'dotenv'
+
+dotenv.config({
+  path: './.env'
+});
 
 router.post("/signup", upload.none(), async (req, res) => {
   const { instituteName, email, phone, password } = req.body;
@@ -44,28 +49,32 @@ router.post("/login", upload.none(), async (req, res) => {
     return res.status(400).json({ error: "Email and password are required" });
   }
 
-  try {
+ try {
     const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    const isMatch = await user.isPasswordCorrect(password)
+
+    const isMatch = await user.isPasswordCorrect(password);
     if (!isMatch) {
       return res.status(401).json({ error: "Invalid password" });
     }
-    const token = jwt.sign({
-    userId: user._id,
-    email: user.email,  
-    instituteName: user.instituteName,
-  },
-  process.env.ACCESS_TOKEN_SECRET,
-  {
-    expiresIn : process.env.ACCESS_TOKEN_EXPIRY
-  })
-  const userObj = user.toObject();
-  userObj.token = token;
-  return res.status(200).json(userObj);
+
+    const token = jwt.sign(
+      {
+        userId: user._id,
+        email: user.email,
+        instituteName: user.instituteName,
+      },
+      process.env.ACCESS_TOKEN_SECRET
+    );
+
+    return res.status(200).json({
+      instituteName: user.instituteName,
+      email: user.email,
+      token: token
+    });
 
   } catch (error) {
     console.log("Login error:", error);
@@ -73,5 +82,4 @@ router.post("/login", upload.none(), async (req, res) => {
   }
 });
 
-
-export default router;
+export default router

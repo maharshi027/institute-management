@@ -42,7 +42,7 @@ router.post("/add-batches", verifyJWT, upload.single("thumbnail"), async (req, r
       });
     }
   }
-);
+)
 
 router.get("/batch-details", verifyJWT, async (req, res) => {
   const userId = req.user.userId;

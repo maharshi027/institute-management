@@ -5,7 +5,6 @@ import loginImg from "../../assets/inst.jpg";
 import { Circles } from "react-loading-icons";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-
 const Login = () => {
   const navigate = useNavigate();
 
@@ -19,20 +18,23 @@ const Login = () => {
 
     try {
       const res = await axios.post("http://localhost:4000/user/login", {
-        email,
+        email,  
         password,
       });
 
       setLoading(false);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("instituteName", res.data.instituteName);
+      localStorage.setItem("email", res.data.email);
+
       toast.success("Welcome Back!");
       navigate("/dashboard");
 
-      console.log(res.data);
-
       // Reset inputs
+
       setEmail("");
       setPassword("");
-
+      
     } catch (error) {
       setLoading(false);
       toast.error("Invalid credentials!");
@@ -43,7 +45,6 @@ const Login = () => {
   return (
     <div className="login-wrapper">
       <div className="login-box">
-
         <div className="login-left">
           <img src={loginImg} alt="login" />
           <h1>Institute Management App</h1>
@@ -74,7 +75,9 @@ const Login = () => {
             <button className="btn" type="submit" disabled={loading}>
               {loading ? <Circles className="loading" /> : "Submit"}
             </button>
-            <Link className="link" to='/signup'>Create Your Account</Link>
+            <Link className="link" to="/signup">
+              Create Your Account
+            </Link>
           </form>
         </div>
       </div>
