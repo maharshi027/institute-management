@@ -3,6 +3,7 @@ import axios from "axios";
 import "./batch.css";
 import { Circles } from "react-loading-icons";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AddBatch = () => {
   const [batchName, setBatchName] = useState("");
@@ -15,6 +16,7 @@ const AddBatch = () => {
   const [loading, setLoading] = useState(false);
 
   const fileRef = useRef (null);
+  const navigate = useNavigate()
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -35,20 +37,23 @@ const AddBatch = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+
       setLoading(false);
       toast.success("Congrats ! New Batch added successfully...");
-
+      navigate('/dashboard/batches')
       // reset after batch adding
 
-      setBatchName("");
-      setDescription("");
-      setPrice("");
-      setStartingDate("");
-      setEndDate("");
-      setThumbnail(null);
-      setThumbnailUrl("");
+      // setBatchName("");
+      // setDescription("");
+      // setPrice("");
+      // setStartingDate("");
+      // setEndDate("");
+      // setThumbnail(null);
+      // setThumbnailUrl("");
 
-      if (fileRef.current) fileRef.current.value = "";
+      // if (fileRef.current) fileRef.current.value = "";
+
+
 
     } catch (error) {
       setLoading(false);

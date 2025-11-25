@@ -18,3 +18,42 @@
 .thumbnail{
     height: 100px;
 }
+
+/* ---------------------Get Batches----------------------- */
+
+.batch-container{
+    width: 100%;
+    /* height: 80vh; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 25px;
+    flex-wrap: wrap;
+    
+}
+.batch-box{
+    width: 23%;
+    height: 25vh;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: #eee;
+    cursor: pointer;
+}
+.batch-box:hover{
+    box-shadow: 1px 2px 5px rosybrown;
+    transition: 0.5s;
+}
+.batch-title{
+    font-size: 16px;
+    text-transform: capitalize;
+    text-align: center;
+
+}
+.batch-price{
+    text-align: center;
+    font-size: 14px;
+}
+.batch-thumbnail{
+    width: 100%;
+    height: 18vh;
+}
