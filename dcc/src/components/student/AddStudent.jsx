@@ -32,7 +32,7 @@ export default function AddStudent() {
     formData.append("phone", phone);
     formData.append("dob", dob);
     formData.append("address", address);
-    formData.append("avatar", avatar); // backend must accept "avatar" here
+    formData.append("avatar", avatar);
     formData.append("userId", localStorage.getItem("userId")); 
     formData.append("batchId", localStorage.getItem("batchId")); 
 
@@ -46,7 +46,7 @@ export default function AddStudent() {
 
       toast.success("Student added successfully!");
       setLoading(false);
-      navigate("/dashboard/students");
+      // navigate("/dashboard/students");
 
     } catch (error) {
       setLoading(false);
