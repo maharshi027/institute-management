@@ -15,13 +15,17 @@ import {Link, useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const location = useLocation();
-
+  const navigate = useNavigate()
+  const logoutHandler = ()=>{
+    localStorage.clear()
+    navigate('/login')
+  }
   return (
     <>
       <div className="brand-container">
         <img className='sidebar-logo' src={logo} alt="brand-logo" />
         <div className='brand-title'>
-          <h2 className='brand-name'>Dinesh Chemistry Classes</h2>
+          <h2 className='brand-name'>{localStorage.getItem('instituteName')}</h2>
           <p className='brand-para'>Manage your App in easy way...</p>
         </div>
       </div>
@@ -33,7 +37,7 @@ const Sidebar = () => {
         <Link className={location.pathname === '/dashboard/add-student' ?'menu-active-link' : "menu-link" } to='/dashboard/add-student'> <MdGroupAdd className='menu-icon'/>Add Student</Link>
         <Link className={location.pathname === '/dashboard/collect-fee' ?'menu-active-link' : "menu-link" } to='/dashboard/collect-fee'> <HiDocumentCurrencyRupee className='menu-icon'/>Collect Fee</Link>
         <Link className={location.pathname === '/dashboard/payment-history' ?'menu-active-link' : "menu-link" } to='/dashboard/payment-history'> <FaHistory className='menu-icon'/>Payment History</Link>
-        <Link className="menu-link" to='/logout'> <IoIosLogOut className='menu-icon'/>Log out</Link>
+        <Link className="menu-link" onClick={logoutHandler} to='/logout'><IoIosLogOut className='menu-icon'/>Log out</Link>
       </div>
       <div className='contact-us'>
         <p><RiContactsFill className='contact-icon'/>Contact us</p>

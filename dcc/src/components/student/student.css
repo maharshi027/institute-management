@@ -1,0 +1,82 @@
+.student-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  gap: 80px;
+}
+
+.student-form {
+  width: 420px;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.student-form h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 26px;
+}
+
+.student-form label {
+  font-weight: 600;
+  margin-bottom: -8px;
+}
+
+.student-form input,
+.student-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cfcfcf;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.student-form textarea {
+  height: 80px;
+  resize: none;
+}
+
+.student-form input:focus,
+.student-form textarea:focus {
+  border-color: #6a5acd;
+  box-shadow: 0 0 3px rgba(106, 90, 205, 0.4);
+}
+
+.preview-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 5px;
+  border: 2px solid #ddd;
+}
+
+.student-btn {
+width: 100%;
+  padding: 12px;
+  border: none;
+  background: var(--primary-3);
+  color: white;
+  font-size: 17px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.student-btn:hover {
+  background: #5a4bcf;
+}
+
+.loading {
+  width: 25px;
+  margin-right: 8px;
+}

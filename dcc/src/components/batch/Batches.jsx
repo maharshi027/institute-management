@@ -27,7 +27,7 @@ const Batches = () => {
   };
 
   return (
-    <div className="batch-container">
+    <div className="get-batch-container">
       {
         batchList.map((batch) => (
            <div className="batch-box" key={batch._id}>

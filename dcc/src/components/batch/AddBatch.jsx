@@ -5,18 +5,24 @@ import { Circles } from "react-loading-icons";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const AddBatch = () => {
+export default function AddBatch() {
   const [batchName, setBatchName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState("");
   const [startingDate, setStartingDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [thumbnail, setThumbnail] = useState(null);
   const [thumbnailUrl, setThumbnailUrl] = useState("");
+
   const [loading, setLoading] = useState(false);
 
-  const fileRef = useRef (null);
-  const navigate = useNavigate()
+  const fileRef = useRef(null);
+  const navigate = useNavigate();
+
+  const handleThumbnail = (e) => {
+    setThumbnail(e.target.files[0]);
+    setThumbnailUrl(URL.createObjectURL(e.target.files[0]));
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -38,22 +44,9 @@ const AddBatch = () => {
         },
       });
 
+      toast.success("New Batch added successfully!");
       setLoading(false);
-      toast.success("Congrats ! New Batch added successfully...");
-      navigate('/dashboard/batches')
-      // reset after batch adding
-
-      // setBatchName("");
-      // setDescription("");
-      // setPrice("");
-      // setStartingDate("");
-      // setEndDate("");
-      // setThumbnail(null);
-      // setThumbnailUrl("");
-
-      // if (fileRef.current) fileRef.current.value = "";
-
-
+      navigate("/dashboard/batches");
 
     } catch (error) {
       setLoading(false);
@@ -61,76 +54,83 @@ const AddBatch = () => {
     }
   };
 
-  const fileHandler = (e) => {
-    setThumbnail(e.target.files[0]);
-    setThumbnailUrl(URL.createObjectURL(e.target.files[0]));
-  };
   return (
-    <div>
+    <div className="add-batch-container">
       <form onSubmit={submitHandler} className="batch-form">
+        
         <h1>Add New Batch</h1>
+
+        <label>Batch Name</label>
         <input
-          required
+          type="text"
           value={batchName}
-          onChange={(e) => {
-            setBatchName(e.target.value);
-          }}
-          type="text"
-          placeholder="Batch Name..."
-        />
-        <input
+          onChange={(e) => setBatchName(e.target.value)}
           required
-          value={price}
-          onChange={(e) => {
-            setPrice(e.target.value);
-          }}
+        />
+
+        <label>Price</label>
+        <input
           type="number"
-          placeholder="Price"
-        />
-        <input
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
           required
-          value={description}
-          onChange={(e) => {
-            setDescription(e.target.value);
-          }}
-          type="text"
-          placeholder="Description"
         />
+
+        <label>Description</label>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+
+        <label>Starting Date (DD-MM-YYYY)</label>
         <input
           type="text"
           placeholder="DD-MM-YYYY"
+          value={startingDate}
           onChange={(e) => {
             let v = e.target.value.replace(/[^\d]/g, "");
             if (v.length > 2) v = v.slice(0, 2) + "-" + v.slice(2);
             if (v.length > 5) v = v.slice(0, 5) + "-" + v.slice(5, 9);
             setStartingDate(v);
           }}
-          value={startingDate}
+          required
         />
 
+        <label>End Date (DD-MM-YYYY)</label>
         <input
           type="text"
           placeholder="DD-MM-YYYY"
+          value={endDate}
           onChange={(e) => {
             let v = e.target.value.replace(/[^\d]/g, "");
             if (v.length > 2) v = v.slice(0, 2) + "-" + v.slice(2);
             if (v.length > 5) v = v.slice(0, 5) + "-" + v.slice(5, 9);
             setEndDate(v);
           }}
-          value={endDate}
+          required
         />
 
-        <input ref={fileRef} required onChange={fileHandler} type="file" />
-        {thumbnailUrl && (
-          <img className="thumbnail" src={thumbnailUrl} alt="thumbnail" />
+        <label>Upload Thumbnail</label>
+        <input
+          type="file"
+          ref={fileRef}
+          onChange={handleThumbnail}
+          required
+        />
+
+        
+        <button type="submit" className="batch-btn">
+          {loading && <Circles className="loading" />}
+          Submit
+        </button>
+
+      </form>
+      {thumbnailUrl && (
+          <img src={thumbnailUrl} alt="thumbnail" className="thumbnail-preview" />
         )}
 
-        <button className="btn" type="submit">
-          {loading && <Circles className="loading" />} submit
-        </button>
-      </form>
     </div>
+    
   );
-};
-
-export default AddBatch;
+}

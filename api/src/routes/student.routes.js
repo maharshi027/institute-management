@@ -9,7 +9,7 @@ const router = Router();
 // ------------------------- add new student -----------------
 
 router.post("/add-student", verifyJWT, upload.single("avatar"), async (req, res) => {
-    const { studentName, phone, email, address, studentId } = req.body;
+    const { studentName, phone, dob, address, studentId } = req.body;
     const avatar = req.file?.path;
     // const { studentId } = req.params;
     if (!avatar) {
@@ -22,7 +22,7 @@ router.post("/add-student", verifyJWT, upload.single("avatar"), async (req, res)
       const newStudent = new Student({
         studentName,
         phone,
-        email,
+        dob,
         address,
         studentId,
         avatarUrl: uploaded.url,
@@ -52,7 +52,7 @@ router.get("/all-students", verifyJWT, async (req, res) => {
 
   try {
     const getAllStudents = await Student.find({userId})
-    .select("_id userId studentName phone email address studentId avatarUrl avatarId")
+    .select("_id userId studentName phone dob address studentId avatarUrl avatarId")
     
     return res.status(200).json({
         students: getAllStudents
@@ -72,7 +72,7 @@ router.get("/all-students/:studentId", verifyJWT, async (req, res) => {
   
   try {
     const allstudentsOnstudent = await Student.find({ userId, studentId: req.params.studentId })
-    .select("_id userId studentName phone email address studentId avatarUrl avatarId")
+    .select("_id userId studentName phone dob address studentId avatarUrl avatarId")
     
     return res.status(200).json({
         students: allstudentsOnstudent
@@ -157,7 +157,7 @@ router.put("/:id",verifyJWT, upload.single("avatar"), async (req, res) => {
       const updatedData = {
         studentName : req.body.studentName || student.studentName,
         phone : req.body.phone || student.phone,
-        email : req.body.email || student.email,
+        dob : req.body.dob || student.dob,
         address : req.body.address,
         batchId : req.body.batchId,
         avatarUrl : avatarUrl,
