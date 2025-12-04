@@ -4,6 +4,8 @@ import { Router } from "express";
 import { verifyJWT } from "../middleware/auth.middleware.js";
 import { Student } from "../models/student.model.js";
 import { upload } from "../middleware/multer.middleware.js";
+
+
 const router = Router();
 
 // ------------------------- add new student -----------------
@@ -15,7 +17,6 @@ router.post("/add-student", verifyJWT, upload.single("avatar"), async (req, res)
     if (!avatar) {
       return res.status(400).json({ msg: "avatar is required" });
     }
-
     try {
       const uploaded = await uploadToCloudinary(avatar);
 

@@ -12,6 +12,7 @@ export default function AddStudent() {
   const [address, setAddress] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [avatarUrl, setAvatarUrl] = useState("");
+  const [batchId, setBatchId] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -33,8 +34,8 @@ export default function AddStudent() {
     formData.append("dob", dob);
     formData.append("address", address);
     formData.append("avatar", avatar);
-    formData.append("userId", localStorage.getItem("userId")); 
-    formData.append("batchId", localStorage.getItem("batchId")); 
+    formData.append("batchId", batchId);
+    formData.append("userId", localStorage.getItem("userId"));
 
     try {
       await axios.post("http://localhost:4000/student/add-student", formData, {
@@ -46,8 +47,6 @@ export default function AddStudent() {
 
       toast.success("Student added successfully!");
       setLoading(false);
-      // navigate("/dashboard/students");
-
     } catch (error) {
       setLoading(false);
       toast.error("Something went wrong...");
@@ -56,6 +55,7 @@ export default function AddStudent() {
 
   return (
     <div className="student-container">
+      
       <form onSubmit={submitHandler} className="student-form">
         <h1>Add New Student</h1>
 
@@ -97,12 +97,20 @@ export default function AddStudent() {
         ></textarea>
 
         <label>Upload Avatar</label>
-        <input
-          type="file"
-          ref={fileRef}
-          onChange={handleAvatar}
+        <input type="file" ref={fileRef} onChange={handleAvatar} required />
+
+        <label>Select Batch</label>
+        <select
+          className="batch-select"
+          value={batchId}
+          onChange={(e) => setBatchId(e.target.value)}
           required
-        />
+        >
+          <option value="">-- Select Batch --</option>
+          <option value="1">Batch A</option>
+          <option value="2">Batch B</option>
+          <option value="3">Batch C</option>
+        </select>
 
         <button type="submit" className="student-btn">
           {loading && <Circles className="loading" />}
@@ -110,10 +118,9 @@ export default function AddStudent() {
         </button>
       </form>
 
-       {avatarUrl && (
-          <img src={avatarUrl} alt="avatar" className="preview-img" />
-        )}
-
+      {avatarUrl && (
+        <img src={avatarUrl} alt="avatar" className="preview-img" />
+      )}
     </div>
   );
 }

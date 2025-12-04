@@ -2,9 +2,9 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-  gap: 80px;
+  align-items: flex-start;
+  margin-top: 20px;
+  gap: 60px;
 }
 
 .student-form {
@@ -12,7 +12,7 @@
   background: #ffffff;
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0px 4px 20px rgba(0,0,0,0.3);
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -26,11 +26,12 @@
 
 .student-form label {
   font-weight: 600;
-  margin-bottom: -8px;
+  margin-bottom: -5px;
 }
 
 .student-form input,
-.student-form textarea {
+.student-form textarea,
+.batch-select {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #cfcfcf;
@@ -41,14 +42,20 @@
 }
 
 .student-form textarea {
-  height: 80px;
+  height: 60px;
   resize: none;
 }
 
 .student-form input:focus,
-.student-form textarea:focus {
+.student-form textarea:focus,
+.batch-select:focus {
   border-color: #6a5acd;
   box-shadow: 0 0 3px rgba(106, 90, 205, 0.4);
+}
+
+.batch-select {
+  background: #f8f8ff;
+  cursor: pointer;
 }
 
 .preview-img {
@@ -57,10 +64,11 @@
   object-fit: cover;
   border-radius: 10px;
   border: 2px solid #ddd;
+  margin-top: 20px;
 }
 
 .student-btn {
-width: 100%;
+  width: 100%;
   padding: 12px;
   border: none;
   background: var(--primary-3);
