@@ -15,7 +15,7 @@ const BatchDetails = () => {
   const getBatchDetails = async () => {
     // API call to get batch details using params.id
     await axios
-      .get(`http://localhost:4000/batch/batch-details/${params.id}`, {
+      .get(`https://institute-management-1-izzi.onrender.com/batch/batch-details/${params.id}`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },

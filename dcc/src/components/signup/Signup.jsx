@@ -26,7 +26,7 @@ const Signup = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:4000/user/signup",
+        "https://institute-management-1-izzi.onrender.com/user/signup",
         formData
       );
       setLoading(false);
