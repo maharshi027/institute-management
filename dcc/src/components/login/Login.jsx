@@ -17,7 +17,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post("https://institute-management-1-izzi.onrender.com/user/login", {
+      const res = await axios.post("http://localhost:4000/user/login", {
         email,  
         password,
       });
