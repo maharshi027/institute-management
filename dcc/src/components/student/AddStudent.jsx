@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "./student.css";
 import { Circles } from "react-loading-icons";
@@ -9,19 +9,44 @@ export default function AddStudent() {
   const [studentName, setStudentName] = useState("");
   const [phone, setPhone] = useState("");
   const [dob, setDob] = useState("");
+  const [batchId, setBatchId] = useState("");
   const [address, setAddress] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [avatarUrl, setAvatarUrl] = useState("");
-  const [batchId, setBatchId] = useState("");
+  
 
   const [loading, setLoading] = useState(false);
 
   const fileRef = useRef(null);
-  const navigate = useNavigate();
+  
 
   const handleAvatar = (e) => {
     setAvatar(e.target.files[0]);
     setAvatarUrl(URL.createObjectURL(e.target.files[0]));
+  };
+   const navigate = useNavigate();
+
+  // ========================= Get batches for the option list of batches =================================
+
+  const [batchList, setBatchList] = useState([]);
+  useEffect(() => {
+    getBatches();
+  }, []);
+
+  const getBatches = async (e) => {
+    await axios
+      .get("http://localhost:4000/batch/batch-details", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        setBatchList(res.data.batches);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Something went wrong");
+      });
   };
 
   const submitHandler = async (e) => {
@@ -33,8 +58,8 @@ export default function AddStudent() {
     formData.append("phone", phone);
     formData.append("dob", dob);
     formData.append("address", address);
-    formData.append("avatar", avatar);
     formData.append("batchId", batchId);
+    formData.append("avatar", avatar);
     formData.append("userId", localStorage.getItem("userId"));
 
     try {
@@ -47,6 +72,14 @@ export default function AddStudent() {
 
       toast.success("Student added successfully!");
       setLoading(false);
+      setAddress("");
+      setDob("");
+      setPhone("");
+      setStudentName("");
+      setAvatar(null);
+      setAvatarUrl("");
+      fileRef.current.value = null;
+
     } catch (error) {
       setLoading(false);
       toast.error("Something went wrong...");
@@ -107,9 +140,11 @@ export default function AddStudent() {
           required
         >
           <option value="">-- Select Batch --</option>
-          <option value="1">Batch A</option>
-          <option value="2">Batch B</option>
-          <option value="3">Batch C</option>
+          {batchList.map((batch) => (
+            <option key={batch._id} value={batch._id}>
+              {batch.batchName}
+            </option>
+          ))}
         </select>
 
         <button type="submit" className="student-btn">

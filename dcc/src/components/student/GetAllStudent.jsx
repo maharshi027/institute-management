@@ -3,7 +3,7 @@ import React from 'react'
 const GetAllStudent = () => {
   return (
     <div>
-      Get All Student
+      hi everyone
     </div>
   )
 }
