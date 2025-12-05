@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
+// ================= Mondgoose schema +=================
 const studentSchema = new Schema({
     studentName : {type: String, required: true},
     phone : {type: String, required: true},
@@ -9,7 +10,7 @@ const studentSchema = new Schema({
     avatarId : {type: String, required: true},
     userId : {type: String, required: true},
     batchId : {type: String, required: true}
-
+   
 },
 {timestamps: true}
 )
