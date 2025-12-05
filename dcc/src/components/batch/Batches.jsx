@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Batches = () => {
   const [batchList, setBatchList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getBatches();
@@ -17,7 +19,6 @@ const Batches = () => {
         },
       })
       .then((res) => {
-        console.log(res.data.batches);
         setBatchList(res.data.batches);
       })
       .catch((err) => {
@@ -28,15 +29,23 @@ const Batches = () => {
 
   return (
     <div className="get-batch-container">
-      {
-        batchList.map((batch) => (
-           <div className="batch-box" key={batch._id}>
-            <img className="batch-thumbnail" src={batch.thumbnailUrl} alt="thumbnail" />
-            <h2 className="batch-title">{batch.batchName}</h2>
-            <p className="batch-price">&#8377; {batch.price}</p>
-           </div>
-        ))
-      }
+      {batchList.map((batch) => (
+        <div
+          onClick={() => {
+            navigate(`/dashboard/batch-details/${batch._id}`);
+          }}
+          className="batch-box"
+          key={batch._id}
+        >
+          <img
+            className="batch-thumbnail"
+            src={batch.thumbnailUrl}
+            alt="thumbnail"
+          />
+          <h2 className="batch-title">{batch.batchName}</h2>
+          <p className="batch-price">&#8377; {batch.price}</p>
+        </div>
+      ))}
     </div>
   );
 };

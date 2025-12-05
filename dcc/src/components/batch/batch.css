@@ -119,3 +119,98 @@ width: 100%;
     width: 100%;
     height: 18vh;
 }
+
+/* --------------------------- batch-details-wrapper ---------------------- */
+.batch-details-main{
+  background-color: #eee;
+  /* height: 90vh; */
+  padding: 6px;
+}
+.batch-details-wrapper{
+  display: flex;
+  flex-direction: row;
+  gap: 12%;
+  text-transform: capitalize;
+}
+.batch-details-wrapper img{
+  border-radius: 10px;
+  width: 200px;
+  height: 150px;
+  box-shadow: 0 0 3px rgba(106, 90, 205, 0.3);
+}
+.batch-details-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 15px;
+
+}
+
+/* ====================== student card =========================== */
+.student-table-section {
+  margin-top: 10px;
+  width: 100%;
+  height: 62vh;
+  background-color: #f7f3f3;
+  overflow-y: auto;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Poppins", sans-serif;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.student-table thead {
+  background: #5a4fcf;
+  color: white;
+}
+
+.student-table th {
+  padding: 12px;
+  font-size: 15px;
+  text-align: left;
+  letter-spacing: 0.5px;
+}
+
+.student-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 14px;
+}
+
+.st-photo {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+/* Hover effect */
+.student-table tbody tr:hover {
+  background-color: #f2eaff;
+  transition: 0.2s ease-in-out;
+}
+
+/* Smooth scrollbar */
+.student-table-section::-webkit-scrollbar {
+  width: 8px;
+}
+
+.student-table-section::-webkit-scrollbar-thumb {
+  background: #c3b7ff;
+  border-radius: 10px;
+}
+
+.student-table-section::-webkit-scrollbar-thumb:hover {
+  background: #ab9aff;
+}

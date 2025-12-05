@@ -11,6 +11,7 @@ import CollectFee from './components/fee/CollectFee'
 import PaymentHistory from './components/fee/PayementHistory'
 import Dashboard from './components/dashboard/Dashboard'
 import { ToastContainer } from 'react-toastify';
+import BatchDetails from './components/batch/BatchDetails'
 
 
 const App = () => {
@@ -28,7 +29,7 @@ const App = () => {
         {path : 'add-student', Component: AddStudent},
         {path : 'collect-fee', Component: CollectFee},
         {path : 'payment-history', Component: PaymentHistory},
-
+        {path : 'batch-details/:id', Component: BatchDetails}
     ]}
 
   ])
