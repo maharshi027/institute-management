@@ -37,7 +37,7 @@ export default function AddBatch() {
     formData.append("thumbnail", thumbnail);
 
     try {
-      await axios.post("http://localhost:4000/batch/add-batches", formData, {
+      await axios.post("https://institute-management-1-izzi.onrender.com/batch/add-batches", formData, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
           "Content-Type": "multipart/form-data",
