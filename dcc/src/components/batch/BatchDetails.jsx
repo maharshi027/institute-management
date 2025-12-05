@@ -48,7 +48,7 @@ const BatchDetails = () => {
           </div>
         </div>
       )}
-      {studentList && (
+{studentList.length > 0 && (
   <div className="student-table-section">
     <table className="student-table">
       <thead>

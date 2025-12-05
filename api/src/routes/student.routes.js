@@ -57,7 +57,7 @@ router.get("/all-students", verifyJWT, async (req, res) => {
     .select("_id userId studentName phone dob address studentId avatarUrl avatarId")
     
     return res.status(200).json({
-        students: getAllStudents
+        studentList: getAllStudents
       });
   } catch (err) {
     res.status(500).json({

@@ -85,3 +85,81 @@
   width: 25px;
   margin-right: 8px;
 }
+
+/* ============================ Get all students list table = ========================= */
+
+.all-students-container {
+  width: 100%;
+  height: 80vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #e8f0ff, #ffffff);
+  border-radius: 16px;
+  overflow-y: auto;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Table styles */
+.all-students-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  font-family: "Inter", sans-serif;
+}
+
+/* Header */
+.all-students-table thead tr {
+  background: #dfe9ff;
+  border-radius: 12px;
+}
+
+.all-students-table th {
+  padding: 14px;
+  font-size: 15px;
+  text-align: left;
+  color: #2d3e50;
+  border-bottom: 2px solid #c7d7ff;
+}
+
+/* Rows */
+.all-students-table tbody tr {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  transition: 0.25s ease-in-out;
+}
+
+.all-students-table td {
+  padding: 14px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Row Hover */
+.all-students-table tbody tr:hover {
+  transform: scale(1.015);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Student Photo */
+.all-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid #d0d7e6;
+}
+
+/* Scrollbar */
+.all-students-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.all-students-container::-webkit-scrollbar-thumb {
+  background: #b6c7ff;
+  border-radius: 10px;
+}
+
+.all-students-container::-webkit-scrollbar-thumb:hover {
+  background: #94aaff;
+}
