@@ -37,7 +37,7 @@ const GetAllStudent = () => {
             <th>Photo</th>
             <th>Name</th>
             <th>Phone</th>
-            <th>Date-of- Birth</th>
+            <th>Date-of-Birth</th>
           </tr>
         </thead>
 
