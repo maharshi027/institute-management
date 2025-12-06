@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./signup.css";
-import signupImg from "../../assets/inst.jpg";
+import signupImg from "../../assets/inst.webp";
 import { Circles } from "react-loading-icons";
 import { toast } from "react-toastify";
 import {Link, useNavigate } from "react-router-dom";

@@ -19,7 +19,7 @@ const GetAllStudent = () => {
       .then((res) => {
         console.log(res.data);
         
-        setAllStudents(res.data.allStudentList);
+        setAllStudents(res.data.studentList);
       })
       .catch((err) => {
         console.log(err);
