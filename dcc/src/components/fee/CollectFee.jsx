@@ -3,7 +3,7 @@ import React from 'react'
 const CollectFee = () => {
   return (
     <div>
-      fee collection
+      CollectFee
     </div>
   )
 }

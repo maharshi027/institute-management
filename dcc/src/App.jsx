@@ -29,7 +29,8 @@ const App = () => {
         {path : 'add-student', Component: AddStudent},
         {path : 'collect-fee', Component: CollectFee},
         {path : 'payment-history', Component: PaymentHistory},
-        {path : 'batch-details/:id', Component: BatchDetails}
+        {path : 'batch-details/:id', Component: BatchDetails},
+        {path : 'update-batch/:id', Component: AddBatch}
     ]}
 
   ])

@@ -1,16 +1,36 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { RiDeleteBin5Fill } from "react-icons/ri";
+import { FaEdit } from "react-icons/fa";
+
 
 const BatchDetails = () => {
   const params = useParams();
   const [batchDetails, setBatchDetails] = useState(null);
   const [studentList, setStudentList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getBatchDetails();
   }, []);
+
+  const deleteBatch = async () => {
+    await axios
+      .delete(`http://localhost:4000/batch/${params.id}`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then(() => {
+        toast.success("Batch deleted successfully");
+        navigate("/dashboard/batches");
+      })
+      .catch(() => {
+        toast.error("Failed to delete batch");
+      });
+  };
 
   const getBatchDetails = async () => {
     // API call to get batch details using params.id
@@ -45,6 +65,11 @@ const BatchDetails = () => {
             <p>
               End Date: {new Date(batchDetails.endDate).toLocaleDateString()}
             </p>
+          </div>
+          <div className="btn-container">
+              <button onClick={()=>{navigate(`/dashboard/update-batch/${batchDetails._id}`,{state: {batchData: batchDetails}})}} className="edit-btn"><FaEdit />Edit</button>
+              <button onClick={deleteBatch} className="del-btn"><RiDeleteBin5Fill />Delete</button>
+            
           </div>
         </div>
       )}

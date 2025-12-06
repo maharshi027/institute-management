@@ -127,6 +127,7 @@ width: 100%;
   padding: 6px;
 }
 .batch-details-wrapper{
+  height: 20vh;
   display: flex;
   flex-direction: row;
   gap: 12%;
@@ -147,7 +148,48 @@ width: 100%;
   font-size: 15px;
 
 }
+.btn-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.edit-btn{
+  background-color: var(--primary-2);
+  padding: 10px;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.del-btn{
+  background-color: var(--primary-3);
+  padding: 10px;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.edit-btn:hover{
+   box-shadow:   0 0 15px #7033FF,
+    0 0 30px #F65164,
+    0 0 45px #7033FF,
+    0 0 60px #F65164;
+  transition: 0.3s;
 
+}
+.del-btn:hover{
+  box-shadow: 0 0 15px #3b82f6, 0 0 30px #3b82f6, 0 0 45px #3b82f6;
+  transition: 0.3s;
+}
 /* ====================== student card =========================== */
 .student-table-section {
   margin-top: 10px;
