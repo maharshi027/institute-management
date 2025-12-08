@@ -17,20 +17,26 @@ const BatchDetails = () => {
   }, []);
 
   const deleteBatch = async () => {
-    await axios
-      .delete(`http://localhost:4000/batch/${params.id}`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      })
-      .then(() => {
-        toast.success("Batch deleted successfully");
-        navigate("/dashboard/batches");
-      })
-      .catch(() => {
-        toast.error("Failed to delete batch");
-      });
-  };
+  if (!window.confirm("Are you sure you want to delete this batch?")) return;
+
+  try {
+    const token = localStorage.getItem("token");
+
+    await axios.delete(`http://localhost:4000/batch/${params.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    toast.success("Batch deleted successfully!");
+    navigate("/dashboard/batches");
+
+  } catch (error) {
+    console.error("Delete error:", error);
+    toast.error("Failed to delete batch!");
+  }
+};
+
 
   const getBatchDetails = async () => {
     // API call to get batch details using params.id
@@ -88,14 +94,14 @@ const BatchDetails = () => {
 
       <tbody>
         {studentList.map((student, index) => (
-          <tr key={student._id}>
+          <tr onClick={()=>{navigate(`/dashboard/student-details/${student._id}`)}} key={student._id}>
             <td>{index + 1}</td>
             <td>
               <img src={student.avatarUrl} alt="avatar" className="st-photo" />
             </td>
             <td>{student.studentName}</td>
             <td>{student.phone}</td>
-            <td>{student.dob || "N/A"}</td>
+            <td>{student.dob || "DD/MM/YYYY"}</td>
           </tr>
         ))}
       </tbody>

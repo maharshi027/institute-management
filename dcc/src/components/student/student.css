@@ -163,3 +163,129 @@
 .all-students-container::-webkit-scrollbar-thumb:hover {
   background: #94aaff;
 }
+
+/* ============================= Student Table Styles ========================= */ */
+
+.student-main {
+  padding: 20px;
+  background-color: #f3f4f6;
+  min-height: 100vh;
+}
+
+.student-card {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.student-img {
+  width: 160px;
+  height: 160px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 0 5px #aaa;
+}
+
+.student-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  font-size: 17px;
+}
+
+.student-info h1 {
+  margin-bottom: 10px;
+  color: var(--primary-2);
+}
+
+.fee-table-section {
+  margin-top: 20px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.fee-table-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.fee-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fee-table th,
+.fee-table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.fee-table th {
+  background-color: var(--primary-2);
+  color: white;
+}
+
+.no-fee {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  color: gray;
+}
+
+.back-btn {
+  margin-top: 25px;
+  background-color: var(--primary-3);
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.back-btn:hover {
+  box-shadow: 0 0 15px #3b82f6;
+}
+.btn-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.edit-btn, .del-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: white;
+}
+
+.edit-btn {
+  background-color: var(--primary-2);
+}
+
+.del-btn {
+  background-color: var(--primary-3);
+}
+
+.edit-btn:hover {
+  box-shadow: 0 0 15px #7033ff;
+}
+
+.del-btn:hover {
+  box-shadow: 0 0 15px #ef4444;
+}

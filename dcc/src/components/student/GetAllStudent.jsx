@@ -17,8 +17,6 @@ const GetAllStudent = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
-        
         setAllStudents(res.data.studentList);
       })
       .catch((err) => {

@@ -4,7 +4,7 @@ import { Router } from "express";
 import { verifyJWT } from "../middleware/auth.middleware.js";
 import { Student } from "../models/student.model.js";
 import { upload } from "../middleware/multer.middleware.js";
-
+import { Fee } from "../models/fee.model.js";
 
 const router = Router();
 
@@ -69,23 +69,36 @@ router.get("/all-students", verifyJWT, async (req, res) => {
 
 // ----------------------- get the student who are in this student ----------------------------
 
-router.get("/all-students/:studentId", verifyJWT, async (req, res) => {
+router.get("/student-details/:id", verifyJWT, async (req, res) => {
   const userId = req.user.userId;
-  
-  try {
-    const allstudentsOnstudent = await Student.find({ userId, studentId: req.params.studentId })
-    .select("_id userId studentName phone dob address studentId avatarUrl avatarId")
-    
-    return res.status(200).json({
-        students: allstudentsOnstudent
-      });
-  } catch (err) {
-    res.status(500).json({
-      error: err
-    })
-  }
 
+  try {
+    const result = await Student.findById(req.params.id)
+      .select("_id userId studentName phone dob address batchId avatarUrl avatarId");
+
+    // If student not exist
+    if (!result) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    // Fetch fee records
+    const fees = await Fee.find({
+      userId: userId,
+      batchId: result.batchId,
+      phone: result.phone
+    });
+
+    return res.status(200).json({
+      studentDetails: result,
+      feeDetails: fees
+    });
+  } catch (err) {
+    return res.status(500).json({
+      error: err.message || err
+    });
+  }
 });
+
 
 // ++++++++++++++++++++++++++++++++++++ delete student +++++++++++++++++++++++++++++++++++++
 

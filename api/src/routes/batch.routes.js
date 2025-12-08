@@ -96,16 +96,16 @@ router.delete("/:id", verifyJWT, async (req, res) => {
       return res.status(404).json({ msg: "Batch not found" });
     }
 
-    // delete image from cloudinary
-    if (batch.imageId) {
-      await deleteFromCloudinary(batch.imageId);
-    }
-
     await Batch.findByIdAndDelete(batchId);
 
-    return res.status(200).json({
-      msg: "Batch deleted successfully",
-    });
+    res.status(200).json({ msg: "Batch deleted successfully" });
+
+    if (batch.imageId) {
+      deleteFromCloudinary(batch.imageId)
+        .catch((err) =>
+          console.log("Cloudinary deletion failed:", err.message)
+        );
+    }
 
   } catch (err) {
     return res.status(500).json({
@@ -114,6 +114,7 @@ router.delete("/:id", verifyJWT, async (req, res) => {
     });
   }
 });
+
 
 router.put("/:id",verifyJWT, upload.single("thumbnail"), async (req, res) => {
     const userId = req.user.userId;
