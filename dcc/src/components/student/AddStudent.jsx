@@ -3,7 +3,7 @@ import axios from "axios";
 import "./student.css";
 import { Circles } from "react-loading-icons";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function AddStudent() {
   const [studentName, setStudentName] = useState("");
@@ -13,25 +13,42 @@ export default function AddStudent() {
   const [address, setAddress] = useState("");
   const [avatar, setAvatar] = useState(null);
   const [avatarUrl, setAvatarUrl] = useState("");
-  
+
+  const location = useLocation();
 
   const [loading, setLoading] = useState(false);
 
   const fileRef = useRef(null);
-  
 
   const handleAvatar = (e) => {
     setAvatar(e.target.files[0]);
     setAvatarUrl(URL.createObjectURL(e.target.files[0]));
   };
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // ========================= Get batches for the option list of batches =================================
 
   const [batchList, setBatchList] = useState([]);
   useEffect(() => {
+    if (location.state) {
+      const student = location.state.studentData;
+      setStudentName(student.studentName);
+      setPhone(student.phone);
+      setDob(student.dob);
+      setAddress(student.address);
+      setBatchId(student.batchId);
+      setAvatarUrl(student.avatarUrl);
+    } else {
+      setStudentName("");
+      setPhone("");
+      setDob("");
+      setAddress("");
+      setBatchId("");
+      setAvatarUrl("");
+      setAvatar(null);
+    }
     getBatches();
-  }, []);
+  }, [location]);
 
   const getBatches = async (e) => {
     await axios
@@ -59,38 +76,65 @@ export default function AddStudent() {
     formData.append("dob", dob);
     formData.append("address", address);
     formData.append("batchId", batchId);
-    formData.append("avatar", avatar);
     formData.append("userId", localStorage.getItem("userId"));
+    if (avatar) {
+      formData.append("avatar", avatar);
+    }
+    if (location.state) {
+      try {
+        await axios.put(
+          `http://localhost:4000/student/${location.state.studentData._id}`,
+          formData,
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
-    try {
-      await axios.post("http://localhost:4000/student/add-student", formData, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-          "Content-Type": "multipart/form-data",
-        },
-      });
+        toast.success("student details updated !");
+        setLoading(false);
+        navigate(
+          `/dashboard/student-details/${location.state.studentData._id}`
+        );
+      } catch (error) {
+        setLoading(false);
+        toast.error("Something went wrong...");
+      }
+    } else {
+      try {
+        await axios.post(
+          "http://localhost:4000/student/add-student",
+          formData,
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
-      toast.success("Student added successfully!");
-      setLoading(false);
-      setAddress("");
-      setDob("");
-      setPhone("");
-      setStudentName("");
-      setAvatar(null);
-      setAvatarUrl("");
-      fileRef.current.value = null;
-
-    } catch (error) {
-      setLoading(false);
-      toast.error("Something went wrong...");
+        toast.success("Student added successfully!");
+        setLoading(false);
+        setAddress("");
+        setDob("");
+        setPhone("");
+        setStudentName("");
+        setAvatar(null);
+        setAvatarUrl("");
+        setBatchId("");
+        fileRef.current.value = null;
+      } catch (error) {
+        setLoading(false);
+        toast.error("Something went wrong...");
+      }
     }
   };
-
   return (
     <div className="student-container">
-      
       <form onSubmit={submitHandler} className="student-form">
-        <h1>Add New Student</h1>
+        <h1>{location.state ? "Update Student" : "Add New Student"}</h1>
 
         <label>Student Name</label>
         <input
@@ -104,7 +148,11 @@ export default function AddStudent() {
         <input
           type="text"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          maxLength={10}
+          onChange={(e) => {
+            const value = e.target.value.replace(/\D/g, "");
+            setPhone(value);
+          }}
           required
         />
 
@@ -129,15 +177,13 @@ export default function AddStudent() {
           required
         ></textarea>
 
-        <label>Upload Avatar</label>
-        <input type="file" ref={fileRef} onChange={handleAvatar} required />
-
         <label>Select Batch</label>
         <select
           className="batch-select"
           value={batchId}
           onChange={(e) => setBatchId(e.target.value)}
           required
+          disabled={location.state ? true : false}
         >
           <option value="">-- Select Batch --</option>
           {batchList.map((batch) => (
@@ -146,6 +192,14 @@ export default function AddStudent() {
             </option>
           ))}
         </select>
+
+        <label>Upload Avatar</label>
+        <input
+          type="file"
+          ref={fileRef}
+          onChange={handleAvatar}
+          required={!location.state}
+        />
 
         <button type="submit" className="student-btn">
           {loading && <Circles className="loading" />}

@@ -1,0 +1,11 @@
+.home{
+width: 100%;
+    background-color: #000;
+    display: flex;
+    gap: 15px;
+}
+.icon{
+
+    width: 30px;
+    color: red;
+}

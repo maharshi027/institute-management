@@ -137,11 +137,12 @@
 
 /* Row Hover */
 .all-students-table tbody tr:hover {
+  cursor: pointer;
   transform: scale(1.015);
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(239, 237, 237, 0.95);
 }
 
-/* Student Photo */
+
 .all-photo {
   width: 50px;
   height: 50px;
@@ -150,7 +151,6 @@
   border: 2px solid #d0d7e6;
 }
 
-/* Scrollbar */
 .all-students-container::-webkit-scrollbar {
   width: 10px;
 }

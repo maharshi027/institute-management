@@ -6,7 +6,7 @@ const feeSchema = new Schema({
     batchId : {type: String, required: true},
     userId : {type: String, required: true},
     amount : {type: Number, required: true},
-    remarks: {type: String, required: true}
+    remarks: {type: String}
 },
 {timestamps: true})
 

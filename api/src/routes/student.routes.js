@@ -5,6 +5,7 @@ import { verifyJWT } from "../middleware/auth.middleware.js";
 import { Student } from "../models/student.model.js";
 import { upload } from "../middleware/multer.middleware.js";
 import { Fee } from "../models/fee.model.js";
+import { Batch } from "../models/batch.model.js";
 
 const router = Router();
 
@@ -71,12 +72,11 @@ router.get("/all-students", verifyJWT, async (req, res) => {
 
 router.get("/student-details/:id", verifyJWT, async (req, res) => {
   const userId = req.user.userId;
-
   try {
-    const result = await Student.findById(req.params.id)
-      .select("_id userId studentName phone dob address batchId avatarUrl avatarId");
 
-    // If student not exist
+    const result = await Student.findById(req.params.id)
+    .select("_id userId studentName phone dob address batchId avatarUrl avatarId");
+    
     if (!result) {
       return res.status(404).json({ message: "Student not found" });
     }
@@ -87,10 +87,11 @@ router.get("/student-details/:id", verifyJWT, async (req, res) => {
       batchId: result.batchId,
       phone: result.phone
     });
-
+    const batch = await Batch.findById(result.batchId)
     return res.status(200).json({
       studentDetails: result,
-      feeDetails: fees
+      feeDetails: fees,
+      batchDetails: batch
     });
   } catch (err) {
     return res.status(500).json({

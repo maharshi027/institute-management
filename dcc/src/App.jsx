@@ -32,7 +32,9 @@ const App = () => {
         {path : 'payment-history', Component: PaymentHistory},
         {path : 'batch-details/:id', Component: BatchDetails},
         {path : 'update-batch/:id', Component: AddBatch},
-        {path : 'student-details/:id', Component: StudentDetail}
+        {path : 'student-details/:id', Component: StudentDetail},
+        {path : 'update-student/:id', Component: AddStudent},
+        {path : 'payment-history', Component: PaymentHistory}
     ]}
 
   ])

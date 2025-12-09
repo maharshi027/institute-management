@@ -1,0 +1,49 @@
+.fee-container {
+  max-width: 450px;
+  margin: 20px auto;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  background: #fff;
+}
+
+.fee-container h2 {
+    padding: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.fee-form .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+.batch-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cfcfcf;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.2s;
+}
+textarea {
+  resize: none;
+  height: 70px;
+}
+.red-star {
+  color: red;
+  font-weight: bold;
+}

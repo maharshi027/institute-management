@@ -4,7 +4,7 @@ import { Fee } from "../models/fee.model.js";
 
 const router = Router();
 
-router.post("/payment", verifyJWT, async (req, res) => {
+router.post("/collect-fee", verifyJWT, async (req, res) => {
   const userId = req.user.userId
   
   const { paidBy, phone, batchId, amount, remarks } = req.body
@@ -26,7 +26,6 @@ router.post("/payment", verifyJWT, async (req, res) => {
 router.get('/paymentHistory', verifyJWT, async(req, res) => {
   const userId = req.user.userId
   try {
-    console.log("try tk chal lgya hu");
     
     const feeHistory = await Fee.find({ userId })
     
