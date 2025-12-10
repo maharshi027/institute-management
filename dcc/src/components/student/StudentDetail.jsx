@@ -35,22 +35,23 @@ const StudentDetail = () => {
       });
   };
 
-  const deleteStudent = async () => {
-    if (!window.confirm("Are you sure you want to delete this student?"))
+  const deleteStudent = async (studentId) => {
+    if (!window.confirm("Are you sure want to delete this student?"))
       return;
 
     try {
-      const token = localStorage.getItem("token");
-
+    
       await axios.delete(
-        `http://localhost:4000/student/${params.id}`,
+        `http://localhost:4000/student/${studentId}`,
         {
-          headers: { Authorization: `Bearer ${token}` }
+         headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
         }
       );
 
       toast.success("Student deleted successfully!");
-      navigate("/dashboard/students");
+      navigate(`/dashboard/batch-details/${batch._id}`);
     } catch (err) {
       toast.error("Error deleting student!");
       console.log(err);
@@ -88,7 +89,7 @@ const StudentDetail = () => {
             <FaEdit /> Edit
           </button>
 
-          <button className="del-btn" onClick={deleteStudent}>
+          <button className="del-btn" onClick={() => {deleteStudent(student._id)}}>
             <RiDeleteBin5Fill /> Delete
           </button>
         </div>

@@ -90,22 +90,40 @@ router.delete("/:id", verifyJWT, async (req, res) => {
   const batchId = req.params.id;
 
   try {
-    const batch = await Batch.findOne({ _id: batchId, userId });
+   
+    const batch = await Batch.findById(batchId);
+    if (!batch) return res.status(404).json({ msg: "Batch not found" });
 
-    if (!batch) {
-      return res.status(404).json({ msg: "Batch not found" });
+    if (batch.userId.toString() !== userId) {
+      return res
+        .status(403)
+        .json({ msg: "You are not allowed to delete this batch" });
     }
-
-    await Batch.findByIdAndDelete(batchId);
-
-    res.status(200).json({ msg: "Batch deleted successfully" });
 
     if (batch.imageId) {
-      deleteFromCloudinary(batch.imageId)
-        .catch((err) =>
-          console.log("Cloudinary deletion failed:", err.message)
-        );
+      deleteFromCloudinary(batch.imageId).catch((err) =>
+        console.log("Batch image deletion failed:", err.message)
+      );
     }
+
+    const students = await Student.find({ batchId });
+
+    for (const s of students) {
+      if (s.avatarId) {
+        deleteFromCloudinary(s.avatarId).catch((err) =>
+          console.log("Student avatar deletion failed:", err.message)
+        );
+      }
+    }
+
+    await Student.deleteMany({ batchId });
+
+    const result = await Batch.findByIdAndDelete(batchId);
+
+    return res.status(200).json({
+      msg: "Batch deleted successfully",
+      batchDeleted: result,
+    });
 
   } catch (err) {
     return res.status(500).json({
@@ -114,6 +132,7 @@ router.delete("/:id", verifyJWT, async (req, res) => {
     });
   }
 });
+
 
 
 router.put("/:id",verifyJWT, upload.single("thumbnail"), async (req, res) => {

@@ -16,16 +16,16 @@ const BatchDetails = () => {
     getBatchDetails();
   }, []);
 
-  const deleteBatch = async () => {
-  if (!window.confirm("Are you sure you want to delete this batch?")) return;
+  const deleteBatch = async (batchId) => {
+  if (!window.confirm("Are you sure want to delete this batch?")) return;
 
   try {
-    const token = localStorage.getItem("token");
 
-    await axios.delete(`http://localhost:4000/batch/${params.id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    await axios.delete(`http://localhost:4000/batch/${batchId}`, {
+     headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Content-Type": "multipart/form-data",
+        },
     });
 
     toast.success("Batch deleted successfully!");
@@ -74,7 +74,7 @@ const BatchDetails = () => {
           </div>
           <div className="btn-container">
               <button onClick={()=>{navigate(`/dashboard/update-batch/${batchDetails._id}`,{state: {batchData: batchDetails}})}} className="edit-btn"><FaEdit />Edit</button>
-              <button onClick={deleteBatch} className="del-btn"><RiDeleteBin5Fill />Delete</button>
+              <button onClick={()=>{deleteBatch(batchDetails._id)}} className="del-btn"><RiDeleteBin5Fill />Delete</button>
             
           </div>
         </div>
