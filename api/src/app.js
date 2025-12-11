@@ -6,6 +6,7 @@ import userRouter from "./routes/user.routes.js"
 import batchRouter from './routes/batch.routes.js'
 import studentRouter from './routes/student.routes.js'
 import feeRouter from './routes/fee.routes.js'
+import homeRouter from "./routes/home.routes.js"
 const app = express();
 
 app.use(cors({
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Routes
+app.use('/', homeRouter)
 app.use("/user", userRouter);
 app.use("/batch", batchRouter);
 app.use('/student', studentRouter)

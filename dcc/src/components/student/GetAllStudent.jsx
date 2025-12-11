@@ -26,6 +26,7 @@ const GetAllStudent = () => {
         toast.error("Something went wrong");
       });
   };
+  
   return (
     <div>
       {studentList && studentList.length > 0 && (

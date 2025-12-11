@@ -1,6 +1,6 @@
 .home{
 width: 100%;
-    background-color: #000;
+    /* background-color: #000; */
     display: flex;
     gap: 15px;
 }
