@@ -4,7 +4,7 @@ import "./signup.css";
 import signupImg from "../../assets/inst.webp";
 import { Circles } from "react-loading-icons";
 import { toast } from "react-toastify";
-import {Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -64,10 +64,10 @@ const Signup = () => {
               onChange={(e) => setInstituteName(e.target.value)}
               type="text"
               placeholder="Institution Name..."
-              list="institutions" 
+              list="institutions"
               required
             />
-            
+
             <datalist id="institutions">
               <option value="Allen Career Institute" />
               <option value="Resonance Kota" />
@@ -102,7 +102,9 @@ const Signup = () => {
             <button className="btn" type="submit">
               {loading && <Circles className="loading" />} submit
             </button>
-            <Link className="link" to='/login'>Login</Link>
+            <Link className="link" to="/login">
+              Login
+            </Link>
           </form>
         </div>
       </div>

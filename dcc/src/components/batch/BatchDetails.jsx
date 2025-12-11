@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 
-
 const BatchDetails = () => {
   const params = useParams();
   const [batchDetails, setBatchDetails] = useState(null);
@@ -17,26 +16,23 @@ const BatchDetails = () => {
   }, []);
 
   const deleteBatch = async (batchId) => {
-  if (!window.confirm("Are you sure want to delete this batch?")) return;
+    if (!window.confirm("Are you sure want to delete this batch?")) return;
 
-  try {
-
-    await axios.delete(`http://localhost:4000/batch/${batchId}`, {
-     headers: {
+    try {
+      await axios.delete(`http://localhost:4000/batch/${batchId}`, {
+        headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
           "Content-Type": "multipart/form-data",
         },
-    });
+      });
 
-    toast.success("Batch deleted successfully!");
-    navigate("/dashboard/batches");
-
-  } catch (error) {
-    console.error("Delete error:", error);
-    toast.error("Failed to delete batch!");
-  }
-};
-
+      toast.success("Batch deleted successfully!");
+      navigate("/dashboard/batches");
+    } catch (error) {
+      console.error("Delete error:", error);
+      toast.error("Failed to delete batch!");
+    }
+  };
 
   const getBatchDetails = async () => {
     // API call to get batch details using params.id
@@ -73,42 +69,67 @@ const BatchDetails = () => {
             </p>
           </div>
           <div className="btn-container">
-              <button onClick={()=>{navigate(`/dashboard/update-batch/${batchDetails._id}`,{state: {batchData: batchDetails}})}} className="edit-btn"><FaEdit />Edit</button>
-              <button onClick={()=>{deleteBatch(batchDetails._id)}} className="del-btn"><RiDeleteBin5Fill />Delete</button>
-            
+            <button
+              onClick={() => {
+                navigate(`/dashboard/update-batch/${batchDetails._id}`, {
+                  state: { batchData: batchDetails },
+                });
+              }}
+              className="edit-btn"
+            >
+              <FaEdit />
+              Edit
+            </button>
+            <button
+              onClick={() => {
+                deleteBatch(batchDetails._id);
+              }}
+              className="del-btn"
+            >
+              <RiDeleteBin5Fill />
+              Delete
+            </button>
           </div>
         </div>
       )}
-{studentList.length > 0 && (
-  <div className="student-table-section">
-    <table className="student-table">
-      <thead>
-        <tr>
-          <th>S.No</th>
-          <th>Photo</th>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Date-of-Birth</th>
-        </tr>
-      </thead>
+      {studentList.length > 0 && (
+        <div className="student-table-section">
+          <table className="student-table">
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>Photo</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Date-of-Birth</th>
+              </tr>
+            </thead>
 
-      <tbody>
-        {studentList.map((student, index) => (
-          <tr onClick={()=>{navigate(`/dashboard/student-details/${student._id}`)}} key={student._id}>
-            <td>{index + 1}</td>
-            <td>
-              <img src={student.avatarUrl} alt="avatar" className="st-photo" />
-            </td>
-            <td>{student.studentName}</td>
-            <td>{student.phone}</td>
-            <td>{student.dob || "DD/MM/YYYY"}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-)}
-
+            <tbody>
+              {studentList.map((student, index) => (
+                <tr
+                  onClick={() => {
+                    navigate(`/dashboard/student-details/${student._id}`);
+                  }}
+                  key={student._id}
+                >
+                  <td>{index + 1}</td>
+                  <td>
+                    <img
+                      src={student.avatarUrl}
+                      alt="avatar"
+                      className="st-photo"
+                    />
+                  </td>
+                  <td>{student.studentName}</td>
+                  <td>{student.phone}</td>
+                  <td>{student.dob || "DD/MM/YYYY"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };

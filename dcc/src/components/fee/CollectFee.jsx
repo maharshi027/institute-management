@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import { TailSpin } from "react-loading-icons";
 
 const CollectFee = () => {
-  
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [amount, setAmount] = useState("");
@@ -105,7 +104,6 @@ const CollectFee = () => {
             placeholder="Enter 10-digit phone"
           />
         </div>
-        
 
         <div className="form-group">
           <label>

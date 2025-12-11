@@ -8,40 +8,40 @@
 }
 
 .batch-form {
-  width: 450px;               
+  width: 450px;
   background: var(--box-color);
-  padding: 20px;            
+  padding: 20px;
   border-radius: 12px;
-  box-shadow: 0px 4px 20px rgba(0,0,0,0.08);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
-  gap: 10px;             
+  gap: 10px;
 }
 
 .batch-form h1 {
   text-align: center;
-  margin-bottom: 5px;      
-  font-size: 22px;          
+  margin-bottom: 5px;
+  font-size: 22px;
 }
 
 .batch-form label {
   font-weight: 600;
-  margin-bottom: -3px; 
+  margin-bottom: -3px;
 }
 
 .batch-form input,
 .batch-form textarea {
   width: 100%;
-  padding: 8px 10px;       
+  padding: 8px 10px;
   border: 1px solid #ccc;
-  border-radius: 6px;       
-  font-size: 14px;    
+  border-radius: 6px;
+  font-size: 14px;
   outline: none;
   transition: 0.2s;
 }
 
 .batch-form textarea {
-  height: 65px;           
+  height: 65px;
   resize: none;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .thumbnail-preview {
-  width: 300px;           
+  width: 300px;
   height: 170px;
   object-fit: cover;
   border-radius: 8px;
@@ -60,7 +60,7 @@
 }
 
 .batch-btn {
-width: 100%;
+  width: 100%;
   padding: 12px;
   border: none;
   background: var(--primary-3);
@@ -76,84 +76,80 @@ width: 100%;
 }
 
 .loading {
-  width: 20px;      
+  width: 20px;
   margin-right: 6px;
 }
 
 /* ========================= Get Batch ======================= */
 
-
-.get-batch-container{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 25px;
-    flex-wrap: wrap;
-    
+.get-batch-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 25px;
+  flex-wrap: wrap;
 }
-.batch-box{
-    width: 23%;
-    height: 25vh;
-    overflow: hidden;
-    border-radius: 10px;
-    background-color: #eee;
-    cursor: pointer;
+.batch-box {
+  width: 23%;
+  height: 25vh;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #eee;
+  cursor: pointer;
 }
-.batch-box:hover{
-    box-shadow: 1px 2px 5px rosybrown;
-    transition: 0.5s;
+.batch-box:hover {
+  box-shadow: 1px 2px 5px rosybrown;
+  transition: 0.5s;
 }
-.batch-title{
-    font-size: 16px;
-    text-transform: capitalize;
-    text-align: center;
-
+.batch-title {
+  font-size: 16px;
+  text-transform: capitalize;
+  text-align: center;
 }
-.batch-price{
-    text-align: center;
-    font-size: 14px;
+.batch-price {
+  text-align: center;
+  font-size: 14px;
 }
-.batch-thumbnail{
-    width: 100%;
-    height: 18vh;
+.batch-thumbnail {
+  width: 100%;
+  height: 18vh;
 }
 
 /* --------------------------- batch-details-wrapper ---------------------- */
-.batch-details-main{
+.batch-details-main {
   background-color: #eee;
   /* height: 90vh; */
   padding: 5px 5px 10px 5px;
 }
-.batch-details-wrapper{
+.batch-details-wrapper {
   height: 20vh;
   display: flex;
   flex-direction: row;
   gap: 12%;
   text-transform: capitalize;
 }
-.batch-details-wrapper img{
+.batch-details-wrapper img {
   border-radius: 10px;
   width: 200px;
   height: 150px;
   box-shadow: 0 0 3px rgba(106, 90, 205, 0.3);
 }
-.batch-details-content{
+.batch-details-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 10px;
   font-size: 15px;
-
 }
-.btn-container{
+.btn-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 20px;
 }
-.edit-btn{
+.edit-btn {
   background-color: var(--primary-2);
   padding: 10px;
   color: #fff;
@@ -165,7 +161,7 @@ width: 100%;
   align-items: center;
   gap: 5px;
 }
-.del-btn{
+.del-btn {
   background-color: var(--primary-3);
   padding: 10px;
   color: #fff;
@@ -177,15 +173,12 @@ width: 100%;
   align-items: center;
   gap: 5px;
 }
-.edit-btn:hover{
-   box-shadow:   0 0 15px #7033FF,
-    0 0 30px #F65164,
-    0 0 45px #7033FF,
-    0 0 60px #F65164;
+.edit-btn:hover {
+  box-shadow: 0 0 15px #7033ff, 0 0 30px #f65164, 0 0 45px #7033ff,
+    0 0 60px #f65164;
   transition: 0.3s;
-
 }
-.del-btn:hover{
+.del-btn:hover {
   box-shadow: 0 0 15px #3b82f6, 0 0 30px #3b82f6, 0 0 45px #3b82f6;
   transition: 0.3s;
 }

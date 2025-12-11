@@ -18,7 +18,7 @@ const Login = () => {
 
     try {
       const res = await axios.post("http://localhost:4000/user/login", {
-        email,  
+        email,
         password,
       });
 
@@ -34,7 +34,6 @@ const Login = () => {
 
       setEmail("");
       setPassword("");
-      
     } catch (error) {
       setLoading(false);
       toast.error("Invalid credentials!");

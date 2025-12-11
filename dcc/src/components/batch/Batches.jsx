@@ -29,23 +29,29 @@ const Batches = () => {
 
   return (
     <div className="get-batch-container">
-      {batchList.map((batch) => (
-        <div
-          onClick={() => {
-            navigate(`/dashboard/batch-details/${batch._id}`);
-          }}
-          className="batch-box"
-          key={batch._id}
-        >
-          <img
-            className="batch-thumbnail"
-            src={batch.thumbnailUrl}
-            alt="thumbnail"
-          />
-          <h2 className="batch-title">{batch.batchName}</h2>
-          <p className="batch-price">&#8377; {batch.price}</p>
-        </div>
-      ))}
+      {batchList && batchList.length > 0 ? (
+        batchList.map((batch) => (
+          <div
+            onClick={() => {
+              navigate(`/dashboard/batch-details/${batch._id}`);
+            }}
+            className="batch-box"
+            key={batch._id}
+          >
+            <img
+              className="batch-thumbnail"
+              src={batch.thumbnailUrl}
+              alt="thumbnail"
+            />
+            <h2 className="batch-title">{batch.batchName}</h2>
+            <p className="batch-price">&#8377; {batch.price}</p>
+          </div>
+        ))
+      ) : (
+        <p style={{ textAlign: "center", width: "100%", marginTop: "20px" }}>
+          No batches found
+        </p>
+      )}
     </div>
   );
 };

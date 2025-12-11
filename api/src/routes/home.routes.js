@@ -10,7 +10,7 @@ router.get("/home", verifyJWT, async (req, res) => {
   const userId = req.user.userId;
  
   try {
-    const newBatch = await Batch.find({ userId }).sort({ $natural: -1 }).limit(5);
+    const latestTransaction = await Fee.find({ userId }).sort({ $natural: -1 }).limit(5);
     const latestStudent = await Student.find({ userId }).sort({ $natural: -1 }).limit(5);
     const totalBatch = await Batch.countDocuments({ userId });
     const totalStudent = await Student.countDocuments({ userId });
@@ -23,11 +23,11 @@ router.get("/home", verifyJWT, async (req, res) => {
     // console.log(latestStudent, newBatch);
     
     res.status(200).json({ 
-      latestBatch: newBatch,
+      latestTransaction: latestTransaction,
       latestStudent: latestStudent,
-      totalBatch,
-      totalStudent,
-      totalFee,
+      totalBatch: totalBatch,
+      totalStudent: totalStudent,
+      totalFee: totalFee,
     });
   } catch (err) {
     res.status(500).json({

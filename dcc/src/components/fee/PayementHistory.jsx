@@ -30,7 +30,7 @@ const PaymentHistory = () => {
         },
       });
 
-     setPaymentList((res.data?.paymentHistory || []).reverse());
+      setPaymentList((res.data?.paymentHistory || []).reverse());
       setFilteredList(res.data?.paymentHistory || []);
     } catch (err) {
       console.log(err);

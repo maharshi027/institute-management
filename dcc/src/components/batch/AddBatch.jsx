@@ -17,7 +17,6 @@ export default function AddBatch() {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
 
-
   useEffect(() => {
     if (location.state) {
       const batch = location.state.batchData;
@@ -27,7 +26,7 @@ export default function AddBatch() {
       setStartingDate(batch.startingDate);
       setEndDate(batch.endDate);
       setThumbnailUrl(batch.thumbnailUrl);
-    } else{
+    } else {
       setBatchName("");
       setDescription("");
       setPrice("");
@@ -36,7 +35,7 @@ export default function AddBatch() {
       setThumbnailUrl("");
       setThumbnail(null);
     }
-  }, [location])
+  }, [location]);
 
   const fileRef = useRef(null);
   const navigate = useNavigate();
@@ -59,49 +58,48 @@ export default function AddBatch() {
     if (thumbnail) {
       formData.append("thumbnail", thumbnail);
     }
-    
+
     if (location.state) {
-      
-    try {
-      await axios.put(`http://localhost:4000/batch/${location.state.batchData._id}`, formData, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      try {
+        await axios.put(
+          `http://localhost:4000/batch/${location.state.batchData._id}`,
+          formData,
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
-      toast.success("Batch updated successfully!");
-      setLoading(false);
-      navigate(`/dashboard/batch-details/${location.state.batchData._id}`);
+        toast.success("Batch updated successfully!");
+        setLoading(false);
+        navigate(`/dashboard/batch-details/${location.state.batchData._id}`);
+      } catch (error) {
+        setLoading(false);
+        toast.error("Something went wrong...");
+      }
+    } else {
+      try {
+        await axios.post("http://localhost:4000/batch/add-batches", formData, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
-    } catch (error) {
-      setLoading(false);
-      toast.error("Something went wrong...");
-    }
-    } else{
-
-    try {
-      await axios.post("http://localhost:4000/batch/add-batches", formData, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      toast.success("New Batch added successfully!");
-      setLoading(false);
-      navigate("/dashboard/batches");
-
-    } catch (error) {
-      setLoading(false);
-      toast.error("Something went wrong...");
+        toast.success("New Batch added successfully!");
+        setLoading(false);
+        navigate("/dashboard/batches");
+      } catch (error) {
+        setLoading(false);
+        toast.error("Something went wrong...");
+      }
     }
   };
-  }
   return (
     <div className="add-batch-container">
       <form onSubmit={submitHandler} className="batch-form">
-        
         <h1>{location.state ? "Edit Batch" : "Add New Batch"}</h1>
 
         <label>Batch Name</label>
@@ -163,18 +161,14 @@ export default function AddBatch() {
           required={!location.state}
         />
 
-        
         <button type="submit" className="batch-btn">
           {loading && <Circles className="loading" />}
           Submit
         </button>
-
       </form>
       {thumbnailUrl && (
-          <img src={thumbnailUrl} alt="thumbnail" className="thumbnail-preview" />
-        )}
-
+        <img src={thumbnailUrl} alt="thumbnail" className="thumbnail-preview" />
+      )}
     </div>
-    
   );
 }

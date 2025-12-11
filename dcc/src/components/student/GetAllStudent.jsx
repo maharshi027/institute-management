@@ -26,10 +26,10 @@ const GetAllStudent = () => {
         toast.error("Something went wrong");
       });
   };
-  
+
   return (
     <div>
-      {studentList && studentList.length > 0 && (
+      {studentList && studentList.length > 0 ? (
         <div className="all-students-container">
           <table className="all-students-table">
             <thead>
@@ -44,9 +44,15 @@ const GetAllStudent = () => {
 
             <tbody>
               {studentList.map((student, index) => (
-                <tr className="student-row" onClick={()=>{navigate(`/dashboard/student-details/${student._id}`)}} key={student._id}>
+                <tr
+                  className="student-row"
+                  onClick={() => {
+                    navigate(`/dashboard/student-details/${student._id}`);
+                  }}
+                  key={student._id}
+                >
                   <td>{index + 1}</td>
-                    <td>
+                  <td>
                     <img
                       src={student.avatarUrl}
                       alt="avatar"
@@ -61,6 +67,10 @@ const GetAllStudent = () => {
             </tbody>
           </table>
         </div>
+      ) : (
+        <p style={{ textAlign: "center", marginTop: "20px" }}>
+          No students found
+        </p>
       )}
     </div>
   );

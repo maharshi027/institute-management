@@ -1,11 +1,11 @@
 :root {
   --bg-color: #c9d6ef;
-  --box-color: #FFFFFF;
-  --text-color: #33394C;
+  --box-color: #ffffff;
+  --text-color: #33394c;
 
-  --primary-1: #4E7CFF;
-  --primary-2: #7033FF;
-  --primary-3: #F65164;
+  --primary-1: #4e7cff;
+  --primary-2: #7033ff;
+  --primary-3: #f65164;
 }
 * {
   margin: 0;
@@ -14,7 +14,7 @@
   border: none;
   outline: none;
 }
-body{
+body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-color);
@@ -32,8 +32,8 @@ body{
   gap: 10px;
   border: none;
 }
-.btn:hover{
-  background-color : var(--primary-1);
+.btn:hover {
+  background-color: var(--primary-1);
   transition: 1s;
   cursor: pointer;
 }
@@ -42,7 +42,7 @@ body{
   height: 24px;
   width: 24px;
 }
-.link{
+.link {
   color: var(--primary-2);
   text-decoration: none;
   margin-top: 15px;
