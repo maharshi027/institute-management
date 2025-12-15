@@ -69,14 +69,13 @@ const Signup = () => {
             />
 
             <datalist id="institutions">
-              <option value="Allen Career Institute" />
-              <option value="Resonance Kota" />
-              <option value="Aakash Institute" />
-              <option value="FIITJEE" />
-              <option value="BYJU's Learning Centre" />
-              <option value="Unacademy Centre" />
-              <option value="Narayan Institute" />
-              <option value="Bansal Classes" />
+              <option value="Dinesh Chemistry Classes" />
+              <option value="Vikas Maths Classes" />
+              <option value="Balram Physics Classes" />
+              <option value="Arvind Biology CLasses" />
+              <option value="Chandresh Chemistry Classes" />
+              <option value="JK Chemistry Classes" />
+              <option value="Ravindra Biology Classes" />
             </datalist>
             <input
               value={email}

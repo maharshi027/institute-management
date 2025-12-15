@@ -6,7 +6,7 @@ dotenv.config({
   path: './.env'
 });
 
-mongoose.connect('mongodb+srv://albatross25:Kirti123@cluster1.r1jemfh.mongodb.net/?appName=Cluster1')
+mongoose.connect('mongodb+srv://institute_management2511:Harsh2708@cluster0.dpjblty.mongodb.net/?appName=Cluster0')
   .then(() => console.log(" Database Connected"))
   .catch(err => console.log(" DB Error:", err));
 
