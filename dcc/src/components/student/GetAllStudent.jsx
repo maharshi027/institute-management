@@ -29,6 +29,7 @@ const GetAllStudent = () => {
 
   return (
     <div>
+      <h1 style={{ textAlign: "center", fontSize: "28px", margin:"5px" }}>All Students</h1>
       {studentList && studentList.length > 0 ? (
         <div className="all-students-container">
           <table className="all-students-table">
