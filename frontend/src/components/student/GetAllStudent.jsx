@@ -13,7 +13,7 @@ const GetAllStudent = () => {
 
   const getStudents = async () => {
     await axios
-      .get(`http://localhost:4000/student/all-students/`, {
+      .get(`https://institute-management-backend-oxl8.onrender.com/student/all-students/`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },

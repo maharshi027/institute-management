@@ -52,7 +52,7 @@ export default function AddStudent() {
 
   const getBatches = async (e) => {
     await axios
-      .get("http://localhost:4000/batch/batch-details", {
+      .get("https://institute-management-backend-oxl8.onrender.com/batch/batch-details", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -83,7 +83,7 @@ export default function AddStudent() {
     if (location.state) {
       try {
         await axios.put(
-          `http://localhost:4000/student/${location.state.studentData._id}`,
+          `https://institute-management-backend-oxl8.onrender.com/student/${location.state.studentData._id}`,
           formData,
           {
             headers: {
@@ -105,7 +105,7 @@ export default function AddStudent() {
     } else {
       try {
         await axios.post(
-          "http://localhost:4000/student/add-student",
+          "https://institute-management-backend-oxl8.onrender.com/student/add-student",
           formData,
           {
             headers: {

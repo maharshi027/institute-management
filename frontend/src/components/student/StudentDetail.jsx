@@ -19,7 +19,7 @@ const StudentDetail = () => {
 
   const getStudentDetails = async () => {
     await axios
-      .get(`http://localhost:4000/student/student-details/${params.id}`, {
+      .get(`https://institute-management-backend-oxl8.onrender.com/student/student-details/${params.id}`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -39,7 +39,7 @@ const StudentDetail = () => {
     if (!window.confirm("Are you sure want to delete this student?")) return;
 
     try {
-      await axios.delete(`http://localhost:4000/student/${studentId}`, {
+      await axios.delete(`https://institute-management-backend-oxl8.onrender.com/student/${studentId}`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
