@@ -26,7 +26,7 @@ const Signup = () => {
 
     try {
       const res = await axios.post(
-        "https://institute-management-backend-oxl8.onrender.com/user/signup",
+        `${import.meta.env.VITE_REACT_BACKEND_URL}/user/signup`,
         formData
       );
       setLoading(false);

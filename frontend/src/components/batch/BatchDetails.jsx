@@ -19,7 +19,7 @@ const BatchDetails = () => {
     if (!window.confirm("Are you sure want to delete this batch?")) return;
 
     try {
-      await axios.delete(`https://institute-management-backend-oxl8.onrender.com/batch/${batchId}`, {
+      await axios.delete(`${import.meta.env.VITE_REACT_BACKEND_URL}/batch/${batchId}`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
           "Content-Type": "multipart/form-data",
@@ -37,7 +37,7 @@ const BatchDetails = () => {
   const getBatchDetails = async () => {
     // API call to get batch details using params.id
     await axios
-      .get(`https://institute-management-backend-oxl8.onrender.com/batch/batch-details/${params.id}`, {
+      .get(`${import.meta.env.VITE_REACT_BACKEND_URL}/batch/batch-details/${params.id}`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },

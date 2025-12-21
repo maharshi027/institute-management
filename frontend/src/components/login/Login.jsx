@@ -17,7 +17,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post("https://institute-management-backend-oxl8.onrender.com/user/login", {
+      const res = await axios.post(`${import.meta.env.VITE_REACT_BACKEND_URL}/user/login`, {
         email,
         password,
       });

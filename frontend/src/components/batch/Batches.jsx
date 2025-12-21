@@ -13,7 +13,7 @@ const Batches = () => {
 
   const getBatches = async (e) => {
     await axios
-      .get("https://institute-management-backend-oxl8.onrender.com/batch/batch-details", {
+      .get(`${import.meta.env.VITE_REACT_BACKEND_URL}/batch/batch-details`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },

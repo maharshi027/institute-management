@@ -39,7 +39,7 @@ const StudentDetail = () => {
     if (!window.confirm("Are you sure want to delete this student?")) return;
 
     try {
-      await axios.delete(`https://institute-management-backend-oxl8.onrender.com/student/${studentId}`, {
+      await axios.delete(`${import.meta.env.VITE_REACT_BACKEND_URL}/student/${studentId}`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },

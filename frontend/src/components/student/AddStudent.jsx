@@ -52,7 +52,7 @@ export default function AddStudent() {
 
   const getBatches = async (e) => {
     await axios
-      .get("https://institute-management-backend-oxl8.onrender.com/batch/batch-details", {
+      .get("${import.meta.env.VITE_REACT_BACKEND_URL}/batch/batch-details", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -83,7 +83,7 @@ export default function AddStudent() {
     if (location.state) {
       try {
         await axios.put(
-          `https://institute-management-backend-oxl8.onrender.com/student/${location.state.studentData._id}`,
+          `${import.meta.env.VITE_REACT_BACKEND_URL}/student/${location.state.studentData._id}`,
           formData,
           {
             headers: {
@@ -105,7 +105,7 @@ export default function AddStudent() {
     } else {
       try {
         await axios.post(
-          "https://institute-management-backend-oxl8.onrender.com/student/add-student",
+          `${import.meta.env.VITE_REACT_BACKEND_URL}/student/add-student`,
           formData,
           {
             headers: {

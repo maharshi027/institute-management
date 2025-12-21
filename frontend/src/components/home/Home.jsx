@@ -14,7 +14,7 @@ const Home = () => {
   }, []);
   const getHomeDetails = async () => {
     axios
-      .get(`https://institute-management-backend-oxl8.onrender.com/home`, {
+      .get(`${import.meta.env.VITE_REACT_BACKEND_URL}/home`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },

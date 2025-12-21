@@ -22,7 +22,7 @@ const CollectFee = () => {
 
   const getBatches = async () => {
     try {
-      const res = await axios.get("https://institute-management-backend-oxl8.onrender.com/batch/batch-details", {
+      const res = await axios.get(`${import.meta.env.VITE_REACT_BACKEND_URL}/batch/batch-details`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -39,7 +39,7 @@ const CollectFee = () => {
 
     try {
       await axios.post(
-        "https://institute-management-backend-oxl8.onrender.com/fee/collect-fee",
+        `${import.meta.env.VITE_REACT_BACKEND_URL}/fee/collect-fee`,
         {
           paidBy: fullName,
           phone,

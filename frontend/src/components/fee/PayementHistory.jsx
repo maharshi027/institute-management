@@ -24,7 +24,7 @@ const PaymentHistory = () => {
 
   const getPaymentList = async () => {
     try {
-      const res = await axios.get(`https://institute-management-backend-oxl8.onrender.com/fee/paymentHistory/`, {
+      const res = await axios.get(`${import.meta.env.VITE_REACT_BACKEND_URL}/fee/paymentHistory/`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },

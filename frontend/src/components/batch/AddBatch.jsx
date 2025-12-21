@@ -62,7 +62,7 @@ export default function AddBatch() {
     if (location.state) {
       try {
         await axios.put(
-          `https://institute-management-backend-oxl8.onrender.com/batch/${location.state.batchData._id}`,
+          `${import.meta.env.VITE_REACT_BACKEND_URL}/batch/${location.state.batchData._id}`,
           formData,
           {
             headers: {
@@ -81,7 +81,7 @@ export default function AddBatch() {
       }
     } else {
       try {
-        await axios.post("https://institute-management-backend-oxl8.onrender.com/batch/add-batches", formData, {
+        await axios.post("${import.meta.env.VITE_REACT_BACKEND_URL}/batch/add-batches", formData, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
             "Content-Type": "multipart/form-data",
