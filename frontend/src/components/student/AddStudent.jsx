@@ -52,7 +52,7 @@ export default function AddStudent() {
 
   const getBatches = async (e) => {
     await axios
-      .get("${import.meta.env.VITE_REACT_BACKEND_URL}/batch/batch-details", {
+      .get(`${import.meta.env.VITE_REACT_BACKEND_URL}/batch/batch-details`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },

@@ -81,7 +81,7 @@ export default function AddBatch() {
       }
     } else {
       try {
-        await axios.post("${import.meta.env.VITE_REACT_BACKEND_URL}/batch/add-batches", formData, {
+        await axios.post(`${import.meta.env.VITE_REACT_BACKEND_URL}/batch/add-batches`, formData, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
             "Content-Type": "multipart/form-data",
