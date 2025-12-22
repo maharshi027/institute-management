@@ -116,20 +116,14 @@ const Sidebar = () => {
           <FaHistory className="menu-icon" />
           Payment History
         </Link>
-        <Link className="menu-link" onClick={logoutHandler} to="/logout">
-          <IoIosLogOut className="menu-icon" />
-          Log out
-        </Link>
+        
       </div>
-      <div className="contact-us">
-        <p>
-          <RiContactsFill className="contact-icon" />
-          Contact us
-        </p>
-        <p>
-          <BsFillTelephoneOutboundFill className="contact-icon" />
-          +91-7398464400
-        </p>
+      <div className="sidebar-logout-btn">
+        <button className="side-logout-btn"
+           onClick={logoutHandler}>
+           Log out
+          <IoIosLogOut className="menu-icon" />
+        </button>
       </div>
     </>
   );

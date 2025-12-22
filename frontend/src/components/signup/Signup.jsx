@@ -32,9 +32,6 @@ const Signup = () => {
       setLoading(false);
       toast.success("Congrats ! Registred succeefully...");
       navigate("/login");
-      console.log(res.data);
-
-      // Reset fields
       setInstituteName("");
       setEmail("");
       setPhone("");

@@ -19,7 +19,7 @@ const StudentDetail = () => {
 
   const getStudentDetails = async () => {
     await axios
-      .get(`https://institute-management-backend-oxl8.onrender.com/student/student-details/${params.id}`, {
+      .get(`${import.meta.env.VITE_REACT_BACKEND_URL}/student/student-details/${params.id}`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
