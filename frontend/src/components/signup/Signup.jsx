@@ -18,28 +18,43 @@ const Signup = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     setLoading(true);
-    const formData = new FormData();
-    formData.append("instituteName", instituteName);
-    formData.append("email", email);
-    formData.append("phone", phone);
-    formData.append("password", password);
 
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_REACT_BACKEND_URL}/user/signup`,
-        formData
+        {
+          instituteName,
+          email,
+          phone,
+          password,
+        },
+        { timeout: 5000 }
       );
-      setLoading(false);
-      toast.success("Congrats ! Registred succeefully...");
+
+      toast.success("Congrats! Registered successfully...");
       navigate("/login");
+
       setInstituteName("");
       setEmail("");
       setPhone("");
       setPassword("");
+      
     } catch (error) {
-      setLoading(true);
-      toast.error("Something went wrong...");
+      if (error.response) {
+        toast.error(error.response.data.error || "Signup failed");
+      } else if (error.code === "ECONNABORTED") {
+        toast.error("Server is taking too long to respond");
+      } else {
+        toast.error("Only for admins or Paid users...");
+        setInstituteName("");
+        setEmail("");
+        setPhone("");
+        setPassword("");
+      }
+
       console.error("Signup Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 

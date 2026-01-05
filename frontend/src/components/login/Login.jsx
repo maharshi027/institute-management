@@ -13,40 +13,39 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const submitHandler = async (event) => {
-  event.preventDefault();
-  setLoading(true);
+    event.preventDefault();
+    setLoading(true);
 
-  try {
-    const res = await axios.post(
-      `${import.meta.env.VITE_REACT_BACKEND_URL}/user/login`,
-      { email, password },
-      { timeout: 3000 }
-    );
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_REACT_BACKEND_URL}/user/login`,
+        { email, password },
+        { timeout: 3000 }
+      );
 
-    localStorage.setItem("token", res.data.token);
-    localStorage.setItem("instituteName", res.data.instituteName);
-    localStorage.setItem("email", res.data.email);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("instituteName", res.data.instituteName);
+      localStorage.setItem("email", res.data.email);
 
-    toast.success("Welcome Back!");
-    navigate("/dashboard");
+      toast.success("Welcome Back!");
+      navigate("/dashboard");
 
-    setEmail("");
-    setPassword("");
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.error || "Invalid credentials");
+      } else if (error.request) {
+        toast.error("Server not responding");
+      } else {
+        toast.error("An unexpected error occurred");
+      }
 
-  } catch (error) {
-    if (error.response) {
-      toast.error(error.response.data.error || "Invalid credentials");
-    } else if (error.code === "ECONNABORTED") {
-      toast.error("Server is taking too long to respond");
-    } else {
-      toast.error("Only for admins or Paid users...");
+      console.error("Login Error:", error);
+    } finally {
+      setLoading(false);
     }
-
-    console.error("Login Error:", error);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <div className="login-wrapper">
