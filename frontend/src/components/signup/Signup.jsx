@@ -110,7 +110,7 @@ const Signup = () => {
               placeholder="Enter Password"
               required
             />
-            <button className="btn" type="submit">
+            <button className="btn" type="Submit">
               {loading && <Circles className="loading" />} submit
             </button>
             <Link className="link" to="/login">
