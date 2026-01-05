@@ -39,7 +39,7 @@ const Login = () => {
     } else if (error.code === "ECONNABORTED") {
       toast.error("Server is taking too long to respond");
     } else {
-      toast.error("Something went wrong");
+      toast.error("Only for admins or Paid users...");
     }
 
     console.error("Login Error:", error);
