@@ -20,7 +20,7 @@ const Login = () => {
     const res = await axios.post(
       `${import.meta.env.VITE_REACT_BACKEND_URL}/user/login`,
       { email, password },
-      { timeout: 5000 }
+      { timeout: 3000 }
     );
 
     localStorage.setItem("token", res.data.token);
