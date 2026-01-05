@@ -15,7 +15,6 @@ const Login = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     setLoading(true);
-
     try {
       const res = await axios.post(`${import.meta.env.VITE_REACT_BACKEND_URL}/user/login`, {
         email,
@@ -29,14 +28,13 @@ const Login = () => {
 
       toast.success("Welcome Back!");
       navigate("/dashboard");
-
-      // Reset inputs
-
       setEmail("");
       setPassword("");
+
     } catch (error) {
+      
       setLoading(false);
-      toast.error("Invalid credentials!");
+      toast.error("Only for Paid users...!");
       console.error("Login Error:", error);
     }
   };
