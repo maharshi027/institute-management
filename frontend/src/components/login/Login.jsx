@@ -13,31 +13,40 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const submitHandler = async (event) => {
-    event.preventDefault();
-    setLoading(true);
-    try {
-      const res = await axios.post(`${import.meta.env.VITE_REACT_BACKEND_URL}/user/login`, {
-        email,
-        password,
-      });
+  event.preventDefault();
+  setLoading(true);
 
-      setLoading(false);
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("instituteName", res.data.instituteName);
-      localStorage.setItem("email", res.data.email);
+  try {
+    const res = await axios.post(
+      `${import.meta.env.VITE_REACT_BACKEND_URL}/user/login`,
+      { email, password },
+      { timeout: 5000 }
+    );
 
-      toast.success("Welcome Back!");
-      navigate("/dashboard");
-      setEmail("");
-      setPassword("");
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("instituteName", res.data.instituteName);
+    localStorage.setItem("email", res.data.email);
 
-    } catch (error) {
-      
-      setLoading(false);
-      toast.error("Only for Paid users...!");
-      console.error("Login Error:", error);
+    toast.success("Welcome Back!");
+    navigate("/dashboard");
+
+    setEmail("");
+    setPassword("");
+
+  } catch (error) {
+    if (error.response) {
+      toast.error(error.response.data.error || "Invalid credentials");
+    } else if (error.code === "ECONNABORTED") {
+      toast.error("Server is taking too long to respond");
+    } else {
+      toast.error("Something went wrong");
     }
-  };
+
+    console.error("Login Error:", error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="login-wrapper">
