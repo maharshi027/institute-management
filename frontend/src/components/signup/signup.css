@@ -57,3 +57,20 @@
   font-size: 15px;
   height: 45px;
 }
+
+.auth-text {
+  font-size: 14px;
+  margin-top: 8px;
+  color: #555;
+}
+
+.auth-link {
+  color: var(--primary-2);
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+}

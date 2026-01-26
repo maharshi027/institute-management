@@ -80,9 +80,13 @@ const Login = () => {
             <button className="btn" type="submit" disabled={loading}>
               {loading ? <Circles className="loading" /> : "Submit"}
             </button>
-            <Link className="link" to="/signup">
-              Create Your Account
-            </Link>
+            <p className="auth-text">
+              Don’t have an account?
+              <Link className="auth-link" to="/signup">
+                {" "}
+                Sign up
+              </Link>
+            </p>
           </form>
         </div>
       </div>

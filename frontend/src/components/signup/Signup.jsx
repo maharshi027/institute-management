@@ -38,7 +38,6 @@ const Signup = () => {
       setEmail("");
       setPhone("");
       setPassword("");
-      
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.error || "Signup failed");
@@ -110,12 +109,17 @@ const Signup = () => {
               placeholder="Enter Password"
               required
             />
-            <button className="btn" type="Submit">
-              {loading && <Circles className="loading" />} submit
+            <button className="btn" type="submit" disabled={loading}>
+              {loading ? <Circles className="loading" /> : "Create Account"}
             </button>
-            <Link className="link" to="/login">
-              Login
-            </Link>
+
+            <p className="auth-text">
+              Already have an account?
+              <Link className="auth-link" to="/login">
+                {" "}
+                Login
+              </Link>
+            </p>
           </form>
         </div>
       </div>
