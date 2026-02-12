@@ -46,45 +46,52 @@ const Login = () => {
       setLoading(false);
     }
   };
-
+  
   return (
     <div className="login-wrapper">
       <div className="login-box">
         <div className="login-left">
-          <img src={loginImg} alt="login" />
-          <h1>Institute Management App</h1>
-          <p>Learn to Earn...</p>
+          <div className="overlay-content">
+            <img src={loginImg} alt="login" />
+            <h1>Institute Management App</h1>
+            <p>Welcome back! Let's get to work.</p>
+          </div>
         </div>
 
         <div className="login-right">
           <form onSubmit={submitHandler} className="login-form">
-            <h1>Login With Your Account</h1>
-            <hr />
+            <div className="form-header">
+              <h1>Sign In</h1>
+              <p>Enter your details to access your dashboard</p>
+            </div>
+            <hr className="form-divider" />
 
-            <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              placeholder="Enter your Email"
-              required
-            />
+            <div className="input-container">
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="Enter your Email"
+                required
+              />
 
-            <input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              placeholder="Enter Password"
-              required
-            />
+              <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                placeholder="Enter Password"
+                required
+              />
+            </div>
 
-            <button className="btn" type="submit" disabled={loading}>
-              {loading ? <Circles className="loading" /> : "Submit"}
+            <button className="login-btn" type="submit" disabled={loading}>
+              {loading ? <Circles className="loading" stroke="#ffffff" /> : "Sign In"}
             </button>
+            
             <p className="auth-text">
               Don’t have an account?
               <Link className="auth-link" to="/signup">
-                {" "}
-                Sign up
+                {" "}Sign up
               </Link>
             </p>
           </form>

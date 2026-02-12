@@ -57,68 +57,62 @@ const Signup = () => {
     }
   };
 
-  return (
+ return (
     <div className="signup-wrapper">
       <div className="signup-box">
         <div className="signup-left">
-          <img src={signupImg} alt="Signup" />
-          <h1>Institute Management App </h1>
-          <p>Learn to Earn...</p>
+          <div className="overlay-content">
+             <img src={signupImg} alt="Signup" />
+             <h1>Institute Management App</h1>
+             <p>Learn to Earn...</p>
+          </div>
         </div>
 
         <div className="signup-right">
           <form onSubmit={submitHandler} className="signup-form">
-            <h1>Create Your Account</h1>
-            <hr />
-            <input
-              value={instituteName}
-              onChange={(e) => setInstituteName(e.target.value)}
-              type="text"
-              placeholder="Institution Name..."
-              list="institutions"
-              required
-            />
+            <div className="form-header">
+              <h1>Create Your Account</h1>
+              <p>Join our community today</p>
+            </div>
+            
+            <div className="input-container">
+              <input
+                value={instituteName}
+                onChange={(e) => setInstituteName(e.target.value)}
+                type="text"
+                placeholder="Institution Name"
+                required
+              />
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="Email Address"
+                required
+              />
+              <input
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                type="text"
+                placeholder="Phone Number"
+                required
+              />
+              <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                placeholder="Password"
+                required
+              />
+            </div>
 
-            <datalist id="institutions">
-              <option value="Dinesh Chemistry Classes" />
-              <option value="Vikas Maths Classes" />
-              <option value="Balram Physics Classes" />
-              <option value="Arvind Biology CLasses" />
-              <option value="Chandresh Chemistry Classes" />
-              <option value="JK Chemistry Classes" />
-              <option value="Ravindra Biology Classes" />
-            </datalist>
-            <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              placeholder="Enter your Email"
-              required
-            />
-            <input
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              type="text"
-              placeholder="Enter Your Phone Number"
-              required
-            />
-            <input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              placeholder="Enter Password"
-              required
-            />
-            <button className="btn" type="submit" disabled={loading}>
-              {loading ? <Circles className="loading" /> : "Create Account"}
+            <button className="signup-btn" type="submit" disabled={loading}>
+              {loading ? <Circles className="loading" stroke="#ffffff" /> : "Create Account"}
             </button>
 
             <p className="auth-text">
               Already have an account?
-              <Link className="auth-link" to="/login">
-                {" "}
-                Login
-              </Link>
+              <Link className="auth-link" to="/login"> Login</Link>
             </p>
           </form>
         </div>
@@ -126,5 +120,4 @@ const Signup = () => {
     </div>
   );
 };
-
 export default Signup;
