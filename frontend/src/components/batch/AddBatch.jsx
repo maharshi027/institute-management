@@ -69,7 +69,7 @@ export default function AddBatch() {
               Authorization: "Bearer " + localStorage.getItem("token"),
               "Content-Type": "multipart/form-data",
             },
-          }
+          },
         );
 
         toast.success("Batch updated successfully!");
@@ -81,12 +81,16 @@ export default function AddBatch() {
       }
     } else {
       try {
-        await axios.post(`${import.meta.env.VITE_REACT_BACKEND_URL}/batch/add-batches`, formData, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-            "Content-Type": "multipart/form-data",
+        await axios.post(
+          `${import.meta.env.VITE_REACT_BACKEND_URL}/batch/add-batches`,
+          formData,
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+              "Content-Type": "multipart/form-data",
+            },
           },
-        });
+        );
 
         toast.success("New Batch added successfully!");
         setLoading(false);
@@ -97,6 +101,45 @@ export default function AddBatch() {
       }
     }
   };
+
+  const validateEndDate = (value) => {
+    if (value.length !== 10) return value;
+
+    const [dayStr, monthStr, yearStr] = value.split("-");
+    const day = parseInt(dayStr, 10);
+    const month = parseInt(monthStr, 10);
+    const year = parseInt(yearStr, 10);
+
+    if (month < 1 || month > 12) return "";
+
+    const daysInMonth = new Date(year, month, 0).getDate();
+
+    if (day < 1 || day > daysInMonth) return "";
+
+    return value;
+  };
+
+  const validateStartingDate = (value) => {
+    if (value.length !== 10) return value;
+
+    const [dayStr, monthStr, yearStr] = value.split("-");
+    const day = parseInt(dayStr, 10);
+    const month = parseInt(monthStr, 10);
+    const year = parseInt(yearStr, 10);
+
+    const currentYear = new Date().getFullYear();
+
+    if (year < currentYear) return "";
+
+    if (month < 1 || month > 12) return "";
+
+    const daysInMonth = new Date(year, month, 0).getDate();
+
+    if (day < 1 || day > daysInMonth) return "";
+
+    return value;
+  };
+
   return (
     <div className="add-batch-container">
       <form onSubmit={submitHandler} className="batch-form">
@@ -132,8 +175,14 @@ export default function AddBatch() {
           value={startingDate}
           onChange={(e) => {
             let v = e.target.value.replace(/[^\d]/g, "");
+
             if (v.length > 2) v = v.slice(0, 2) + "-" + v.slice(2);
             if (v.length > 5) v = v.slice(0, 5) + "-" + v.slice(5, 9);
+
+            if (v.length === 10) {
+              v = validateStartingDate(v);
+            }
+
             setStartingDate(v);
           }}
           required
@@ -146,8 +195,14 @@ export default function AddBatch() {
           value={endDate}
           onChange={(e) => {
             let v = e.target.value.replace(/[^\d]/g, "");
+
             if (v.length > 2) v = v.slice(0, 2) + "-" + v.slice(2);
             if (v.length > 5) v = v.slice(0, 5) + "-" + v.slice(5, 9);
+
+            if (v.length === 10) {
+              v = validateEndDate(v);
+            }
+
             setEndDate(v);
           }}
           required
