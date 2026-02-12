@@ -40,11 +40,6 @@ router.post("/signup", upload.none(), async (req, res) => {
       $or: [{ email }, { phone }]
     });
 
-    if (existingUser) {
-      await createLog(req, email, "SIGNUP_ATTEMPT_EXISTING");
-      return res.status(409).json({ error: "User already exists" });
-    }
-
     const newUser = new User({
       instituteName,
       email,

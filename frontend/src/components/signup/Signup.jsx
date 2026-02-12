@@ -44,7 +44,7 @@ const Signup = () => {
       } else if (error.code === "ECONNABORTED") {
         toast.error("Server is taking too long to respond");
       } else {
-        toast.error("Only for admins or Paid users...");
+        toast.error("Error: Please try again.");
         setInstituteName("");
         setEmail("");
         setPhone("");
