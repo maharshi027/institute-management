@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from 'bcrypt'
-import { Long } from "mongodb";
+
 const userSchema = new Schema(
   {
     instituteName: {type: String, required: true},

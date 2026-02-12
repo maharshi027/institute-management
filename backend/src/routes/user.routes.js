@@ -1,14 +1,32 @@
 import { Router } from "express";
-import multer from "multer";
 import { User } from "../models/user.model.js";
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
+import { Log } from "../models/logs.model.js";
+import { upload } from "../middleware/multer.middleware.js";
 const router = Router();
-const upload = multer();
-import dotenv from 'dotenv'
 
-dotenv.config({
-  path: './.env'
-});
+/**
+ * @helper
+ */
+const createLog = async (req, email, action, userId = null) => {
+  try {
+    const userAgent = req.headers["user-agent"] || "unknown";
+    const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || "127.0.0.1";
+
+    const location = "Localhost/Network"; 
+
+    await Log.create({
+      userId,
+      email,
+      action,
+      ipAddress: ip,
+      userAgent,
+      location,
+    });
+  } catch (error) {
+    console.error("LOGGING_ERROR:", error);
+  }
+};
 
 router.post("/signup", upload.none(), async (req, res) => {
   const { instituteName, email, phone, password } = req.body;
@@ -23,8 +41,10 @@ router.post("/signup", upload.none(), async (req, res) => {
     });
 
     if (existingUser) {
+      await createLog(req, email, "SIGNUP_ATTEMPT_EXISTING");
       return res.status(409).json({ error: "User already exists" });
     }
+
     const newUser = new User({
       instituteName,
       email,
@@ -33,6 +53,8 @@ router.post("/signup", upload.none(), async (req, res) => {
     });
 
     const savedUser = await newUser.save();
+
+    await createLog(req, email, "SIGNUP", savedUser._id);
 
     return res.status(201).json({ newInstitute: savedUser });
 
@@ -49,15 +71,19 @@ router.post("/login", upload.none(), async (req, res) => {
     return res.status(400).json({ error: "Email and password are required" });
   }
 
- try {
+  try {
     const user = await User.findOne({ email });
 
     if (!user) {
+
+      await createLog(req, email, "LOGIN_FAILURE_NO_USER");
       return res.status(404).json({ error: "User not found" });
     }
 
     const isMatch = await user.isPasswordCorrect(password);
     if (!isMatch) {
+
+      await createLog(req, email, "LOGIN_FAILURE_WRONG_PW", user._id);
       return res.status(401).json({ error: "Invalid password" });
     }
 
@@ -69,6 +95,9 @@ router.post("/login", upload.none(), async (req, res) => {
       },
       process.env.ACCESS_TOKEN_SECRET
     );
+
+
+    await createLog(req, email, "LOGIN_SUCCESS", user._id);
 
     return res.status(200).json({
       instituteName: user.instituteName,
@@ -82,4 +111,13 @@ router.post("/login", upload.none(), async (req, res) => {
   }
 });
 
-export default router
+router.get("/activity-logs", async (req, res) => {
+  try {
+    const logs = await Log.find().sort({ createdAt: -1 }).limit(50);
+    res.status(200).json(logs);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch logs" });
+  }
+});
+
+export default router;

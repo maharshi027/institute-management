@@ -3,11 +3,11 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
-import userRouter from "./routes/user.routes.js";
-import batchRouter from './routes/batch.routes.js';
-import studentRouter from './routes/student.routes.js';
-import feeRouter from './routes/fee.routes.js';
-import homeRouter from "./routes/home.routes.js";
+import userRouter from "./src/routes/user.routes.js";
+import batchRouter from './src/routes/batch.routes.js';
+import studentRouter from './src/routes/student.routes.js';
+import feeRouter from './src/routes/fee.routes.js';
+import homeRouter from "./src/routes/home.routes.js";
 
 
 dotenv.config({ path: './.env' });
