@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./home.css";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -20,7 +20,7 @@ const Home = () => {
         },
       })
       .then((res) => {
-        // console.log(res.data);
+
         setTotalBatches(res.data.totalBatch);
         setTotalStudents(res.data.totalStudent);
         setTotalFee(res.data.totalFee);
