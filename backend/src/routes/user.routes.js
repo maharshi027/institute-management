@@ -71,14 +71,14 @@ router.post("/login", upload.none(), async (req, res) => {
 
     if (!user) {
 
-      await createLog(req, email, "LOGIN_FAILURE_NO_USER");
+      await createLog(req, email, "LOGIN_FAILURE");
       return res.status(404).json({ error: "User not found" });
     }
 
     const isMatch = await user.isPasswordCorrect(password);
     if (!isMatch) {
 
-      await createLog(req, email, "LOGIN_FAILURE_WRONG_PW", user._id);
+      await createLog(req, email, "LOGIN_FAILURE", user._id);
       return res.status(401).json({ error: "Invalid password" });
     }
 
@@ -92,7 +92,7 @@ router.post("/login", upload.none(), async (req, res) => {
     );
 
 
-    await createLog(req, email, "LOGIN_SUCCESS", user._id);
+    await createLog(req, email, "LOGIN", user._id);
 
     return res.status(200).json({
       instituteName: user.instituteName,
