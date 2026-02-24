@@ -1,16 +1,12 @@
 FROM node:18
-
 WORKDIR /app
 
-COPY server/package*.json ./server/
-RUN cd server && npm install
+COPY backend/package*.json ./backend/
+RUN cd backend && npm install
+COPY backend/ ./backend/
 
-COPY server ./server
+COPY --from=client-build /app/frontend/dist ./frontend/dist
 
-COPY --from=client-build /app/client/dist ./client/dist
-
-WORKDIR /app/server
-
+WORKDIR /app/backend
 EXPOSE 5000
-
 CMD ["npm", "run", "dev"]

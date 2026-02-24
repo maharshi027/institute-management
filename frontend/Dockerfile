@@ -1,7 +1,8 @@
 FROM node:18 AS client-build
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
 
-WORKDIR /app/client
-COPY client/package*.json ./
 RUN npm install
-COPY client/ .
+
+COPY frontend/ ./
 RUN npm run build
