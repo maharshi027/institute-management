@@ -11,7 +11,7 @@ const router = Router();
 const createLog = async (req, email, action, userId = null) => {
   try {
     const userAgent = req.headers["user-agent"] || "unknown";
-    const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || "127.0.0.1";
+    const ip = req.headers["x-forwarded-for"]?.split(',')[0] || req.socket.remoteAddress;
 
     const location = "Localhost/Network"; 
 

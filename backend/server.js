@@ -9,7 +9,7 @@ import studentRouter from "./src/routes/student.routes.js";
 import feeRouter from "./src/routes/fee.routes.js";
 import homeRouter from "./src/routes/home.routes.js";
 
-dotenv.config({ path: "./.env" });
+dotenv.config();
 
 const app = express();
 
@@ -35,11 +35,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("/", homeRouter);
 app.use("/user", userRouter);
 app.use("/batch", batchRouter);
 app.use("/student", studentRouter);
 app.use("/fee", feeRouter);
+app.use("/", homeRouter);
 
 
 app.listen(port, () => {
