@@ -3,30 +3,9 @@ import { User } from "../models/user.model.js";
 import jwt from 'jsonwebtoken';
 import { Log } from "../models/logs.model.js";
 import { upload } from "../middleware/multer.middleware.js";
+import { createLog } from "../utils/logger.js";
+
 const router = Router();
-
-/**
- * @helper
- */
-const createLog = async (req, email, action, userId = null) => {
-  try {
-    const userAgent = req.headers["user-agent"] || "unknown";
-    const ip = req.headers["x-forwarded-for"]?.split(',')[0] || req.socket.remoteAddress;
-
-    const location = "Localhost/Network"; 
-
-    await Log.create({
-      userId,
-      email,
-      action,
-      ipAddress: ip,
-      userAgent,
-      location,
-    });
-  } catch (error) {
-    console.error("LOGGING_ERROR:", error);
-  }
-};
 
 router.post("/signup", upload.none(), async (req, res) => {
   const { instituteName, email, phone, password } = req.body;
@@ -39,14 +18,16 @@ router.post("/signup", upload.none(), async (req, res) => {
     const existingUser = await User.findOne({
       $or: [{ email }, { phone }]
     });
-
+    if (existingUser) {
+      return res.status(400).json({ error: "User already exists" });
+    }                                                 
     const newUser = new User({
       instituteName,
       email,
       phone,
       password
     });
-
+    
     const savedUser = await newUser.save();
 
     await createLog(req, email, "SIGNUP", savedUser._id);
