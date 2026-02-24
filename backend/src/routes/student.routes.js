@@ -14,7 +14,6 @@ const router = Router();
 router.post("/add-student", verifyJWT, upload.single("avatar"), async (req, res) => {
     const { studentName, phone, dob, address, studentId, batchId } = req.body;
     const avatar = req.file?.path;
-    // const { studentId } = req.params;
     if (!avatar) {
       return res.status(400).json({ msg: "avatar is required" });
     }
