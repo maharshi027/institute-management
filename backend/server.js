@@ -17,10 +17,6 @@ connectDB();
 
 const port = process.env.PORT || 5000;
 
-const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(",").map((o) => o.trim())
-  : [];
-
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN,
