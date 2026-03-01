@@ -1,5 +1,7 @@
-
-import { uploadToCloudinary , deleteFromCloudinary} from "../utils/cloudinary.js";
+import {
+  uploadToCloudinary,
+  deleteFromCloudinary,
+} from "../utils/cloudinary.js";
 import { Router } from "express";
 import { verifyJWT } from "../middleware/auth.middleware.js";
 import { Student } from "../models/student.model.js";
@@ -11,7 +13,11 @@ const router = Router();
 
 // ------------------------- add new student -----------------
 
-router.post("/add-student", verifyJWT, upload.single("avatar"), async (req, res) => {
+router.post(
+  "/add-student",
+  verifyJWT,
+  upload.single("avatar"),
+  async (req, res) => {
     const { studentName, phone, dob, address, studentId, batchId } = req.body;
     const avatar = req.file?.path;
     if (!avatar) {
@@ -29,14 +35,14 @@ router.post("/add-student", verifyJWT, upload.single("avatar"), async (req, res)
         studentId,
         avatarUrl: uploaded.url,
         avatarId: uploaded.imageId,
-        userId: req.user.userId
+        userId: req.user.userId,
       });
 
       const studentSaved = await newStudent.save();
 
       return res.status(201).json({
         msg: "new student added successfully",
-        student : studentSaved,
+        student: studentSaved,
       });
     } catch (error) {
       return res.status(500).json({
@@ -53,18 +59,18 @@ router.get("/all-students", verifyJWT, async (req, res) => {
   const userId = req.user.userId;
 
   try {
-    const getAllStudents = await Student.find({userId})
-    .select("_id userId studentName phone dob address studentId avatarUrl avatarId")
-    
+    const getAllStudents = await Student.find({ userId }).select(
+      "_id userId studentName phone dob address studentId avatarUrl avatarId"
+    );
+
     return res.status(200).json({
-        studentList: getAllStudents
-      });
+      studentList: getAllStudents,
+    });
   } catch (err) {
     res.status(500).json({
-      error: err
-    })
+      error: err,
+    });
   }
-
 });
 
 // ----------------------- get the student who are in this student ----------------------------
@@ -72,10 +78,10 @@ router.get("/all-students", verifyJWT, async (req, res) => {
 router.get("/student-details/:id", verifyJWT, async (req, res) => {
   const userId = req.user.userId;
   try {
+    const result = await Student.findById(req.params.id).select(
+      "_id userId studentName phone dob address batchId avatarUrl avatarId"
+    );
 
-    const result = await Student.findById(req.params.id)
-    .select("_id userId studentName phone dob address batchId avatarUrl avatarId");
-    
     if (!result) {
       return res.status(404).json({ message: "Student not found" });
     }
@@ -84,27 +90,26 @@ router.get("/student-details/:id", verifyJWT, async (req, res) => {
     const fees = await Fee.find({
       userId: userId,
       batchId: result.batchId,
-      phone: result.phone
+      phone: result.phone,
     });
-    const batch = await Batch.findById(result.batchId)
+    const batch = await Batch.findById(result.batchId);
     return res.status(200).json({
       studentDetails: result,
       feeDetails: fees,
-      batchDetails: batch
+      batchDetails: batch,
     });
   } catch (err) {
     return res.status(500).json({
-      error: err.message || err
+      error: err.message || err,
     });
   }
 });
-
 
 // ++++++++++++++++++++++++++++++++++++ delete student +++++++++++++++++++++++++++++++++++++
 
 router.delete("/:id", verifyJWT, async (req, res) => {
   const userId = req.user.userId;
-  const stdId = req.params.id
+  const stdId = req.params.id;
 
   try {
     const std = await Student.findOne({ _id: stdId, userId });
@@ -114,8 +119,9 @@ router.delete("/:id", verifyJWT, async (req, res) => {
     }
 
     // delete image from cloudinary
-    if (std.imageId) {
-       await deleteFromCloudinary(std.imageId);
+
+    if (std.avatarId) {
+      await deleteFromCloudinary(std.avatarId);
     }
 
     await Student.findByIdAndDelete(stdId);
@@ -123,7 +129,6 @@ router.delete("/:id", verifyJWT, async (req, res) => {
     return res.status(200).json({
       msg: "Student deleted successfully",
     });
-
   } catch (err) {
     return res.status(500).json({
       msg: "Server error",
@@ -134,86 +139,85 @@ router.delete("/:id", verifyJWT, async (req, res) => {
 
 // =============================== Update the student details ================================
 
-router.put("/:id",verifyJWT, upload.single("avatar"), async (req, res) => {
-    const userId = req.user.userId;
-
-    try {
-      const student = await Student.findById(req.params.id);
-
-      if (!student) {
-        return res.status(404).json({ error: "student not found" });
-      }
-
-      if (student.userId.toString() !== userId) {
-        return res
-          .status(403)
-          .json({ error: "You are not allowed to update this details of the student" });
-      }
-
-      // ---------- Image update -------------
-      let avatarUrl = student.avatarUrl;
-      let avatarId = student.avatarId;
-
-      if (req.file) {
-
-        // console.log("New image updating...");
-
-        if (student.avatarId) {
-          await deleteFromCloudinary(student.avatarId);
-        }
-
-        const uploaded = await uploadToCloudinary(req.file.path);
-        avatarUrl = uploaded.url;
-        avatarId = uploaded.imageId;
-      }
-
-      // ---------- Update the details of the studentj -------------
-
-      const updatedData = {
-        studentName : req.body.studentName || student.studentName,
-        phone : req.body.phone || student.phone,
-        dob : req.body.dob || student.dob,
-        address : req.body.address,
-        batchId : req.body.batchId,
-        avatarUrl : avatarUrl,
-        avatarId : avatarId
-      }
-
-      const updatedstudent = await Student.findByIdAndUpdate(req.params.id, updatedData,
-       {
-         new : true
-       }
-      )
-
-      return res.status(200).json({
-        msg: "student details updated successfully",
-        student: updatedstudent,
-      });
-    } catch (err) {
-      return res.status(500).json({
-        msg: "Server error",
-        error: err.message,
-      });
-    }
-  }
-);
-
-// *************************** Latest 5 studdent ************************************
-
-router.get('/latest-student', verifyJWT, async(req, res) => {
+router.put("/:id", verifyJWT, upload.single("avatar"), async (req, res) => {
   const userId = req.user.userId;
 
   try {
-    const student = await Student.find({userId})
-    const result = student.sort({$natural: -1}).limit(5)
-  
-    res.status(200).json( {students : result })
+    const student = await Student.findById(req.params.id);
+
+    if (!student) {
+      return res.status(404).json({ error: "student not found" });
+    }
+
+    if (student.userId.toString() !== userId) {
+      return res.status(403).json({
+        error: "You are not allowed to update this details of the student",
+      });
+    }
+
+    // ---------- Image update -------------
+    let avatarUrl = student.avatarUrl;
+    let avatarId = student.avatarId;
+
+    if (req.file) {
+      // console.log("New image updating...");
+
+      if (student.avatarId) {
+        await deleteFromCloudinary(student.avatarId);
+      }
+
+      const uploaded = await uploadToCloudinary(req.file.path);
+      avatarUrl = uploaded.url;
+      avatarId = uploaded.imageId;
+    }
+
+    // ---------- Update the details of the studentj -------------
+
+    const updatedData = {
+      studentName: req.body.studentName || student.studentName,
+      phone: req.body.phone || student.phone,
+      dob: req.body.dob || student.dob,
+      address: req.body.address,
+      batchId: req.body.batchId,
+      avatarUrl: avatarUrl,
+      avatarId: avatarId,
+    };
+
+    const updatedstudent = await Student.findByIdAndUpdate(
+      req.params.id,
+      updatedData,
+      {
+        new: true,
+      }
+    );
+
+    return res.status(200).json({
+      msg: "student details updated successfully",
+      student: updatedstudent,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      msg: "Server error",
+      error: err.message,
+    });
+  }
+});
+
+// *************************** Latest 5 studdent ************************************
+
+router.get("/latest-student", verifyJWT, async (req, res) => {
+  const userId = req.user.userId;
+
+  try {
+    const result = await Student.find({ userId })
+      .sort({ createdAt: -1 })
+      .limit(5);
+    res.status(200).json({ students: result });
   } catch (err) {
     res.status(500).json({
-      error : err
-    })
+      error: err,
+    });
   }
-
-})
+});
 
 export default router;

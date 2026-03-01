@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { User } from "../models/user.model.js";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import { Log } from "../models/logs.model.js";
 import { upload } from "../middleware/multer.middleware.js";
 import { createLog } from "../utils/logger.js";
@@ -16,24 +16,23 @@ router.post("/signup", upload.none(), async (req, res) => {
 
   try {
     const existingUser = await User.findOne({
-      $or: [{ email }, { phone }]
+      $or: [{ email }, { phone }],
     });
     if (existingUser) {
       return res.status(400).json({ error: "User already exists" });
-    }                                                 
+    }
     const newUser = new User({
       instituteName,
       email,
       phone,
-      password
+      password,
     });
-    
+
     const savedUser = await newUser.save();
 
     await createLog(req, email, "SIGNUP", savedUser._id);
 
     return res.status(201).json({ newInstitute: savedUser });
-
   } catch (error) {
     console.log("ERROR:", error);
     return res.status(500).json({ error: "Server error" });
@@ -51,14 +50,12 @@ router.post("/login", upload.none(), async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-
       await createLog(req, email, "LOGIN_FAILURE");
       return res.status(404).json({ error: "User not found" });
     }
 
     const isMatch = await user.isPasswordCorrect(password);
     if (!isMatch) {
-
       await createLog(req, email, "LOGIN_FAILURE", user._id);
       return res.status(401).json({ error: "Invalid password" });
     }
@@ -69,18 +66,17 @@ router.post("/login", upload.none(), async (req, res) => {
         email: user.email,
         instituteName: user.instituteName,
       },
-      process.env.ACCESS_TOKEN_SECRET
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
     );
-
 
     await createLog(req, email, "LOGIN", user._id);
 
     return res.status(200).json({
       instituteName: user.instituteName,
       email: user.email,
-      token: token
+      token: token,
     });
-
   } catch (error) {
     console.log("Login error:", error);
     return res.status(500).json({ error: "Server error" });
