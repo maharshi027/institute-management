@@ -12,7 +12,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "build": "echo 'No build required for node.js app"
+    "build": "echo 'No build required for node.js app'"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
