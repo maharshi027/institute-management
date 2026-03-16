@@ -10,6 +10,7 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const submitHandler = async (event) => {
@@ -75,13 +76,26 @@ const Login = () => {
                 required
               />
 
-              <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                placeholder="Enter Password"
-                required
-              />
+              <div className="password-input-wrapper">
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter Password"
+                  required
+                />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "14px",
+                    cursor: "pointer"
+                  }}
+                >
+                  {showPassword ? "🙈" : "👁"}
+                </span>
+              </div>
             </div>
 
             <button className="login-btn" type="submit" disabled={loading}>

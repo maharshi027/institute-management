@@ -5,7 +5,6 @@ import signupImg from "../../assets/inst.webp";
 import { Circles } from "react-loading-icons";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 const Signup = () => {
   const navigate = useNavigate();
 
@@ -112,13 +111,17 @@ const Signup = () => {
                   title="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character"
                   required
                 />
-                <button
-                  type="button"
-                  className="password-toggle-btn"
+                <span
                   onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "14px",
+                    cursor: "pointer"
+                  }}
                 >
-                  {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
-                </button>
+                  {showPassword ? "🙈" : "👁"}
+                </span>
               </div>
             </div>
 
