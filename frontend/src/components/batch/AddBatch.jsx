@@ -211,19 +211,20 @@ export default function AddBatch() {
         <label>Upload Thumbnail</label>
         <input
           type="file"
+          accept="image/*"
           ref={fileRef}
           onChange={handleThumbnail}
           required={!location.state}
         />
+        {thumbnailUrl && (
+          <img src={thumbnailUrl} alt="thumbnail" className="thumbnail-preview" />
+        )}
 
         <button type="submit" className="batch-btn">
           {loading && <Circles className="loading" />}
           Submit
         </button>
       </form>
-      {thumbnailUrl && (
-        <img src={thumbnailUrl} alt="thumbnail" className="thumbnail-preview" />
-      )}
     </div>
   );
 }

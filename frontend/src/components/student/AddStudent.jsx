@@ -196,20 +196,20 @@ export default function AddStudent() {
         <label>Upload Avatar</label>
         <input
           type="file"
+          accept="image/*"
           ref={fileRef}
           onChange={handleAvatar}
           required={!location.state}
         />
+        {avatarUrl && (
+          <img src={avatarUrl} alt="avatar" className="preview-img" style={{ marginTop: '10px' }} />
+        )}
 
         <button type="submit" className="student-btn">
           {loading && <Circles className="loading" />}
           Submit
         </button>
       </form>
-
-      {avatarUrl && (
-        <img src={avatarUrl} alt="avatar" className="preview-img" />
-      )}
     </div>
   );
 }
