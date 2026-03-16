@@ -164,17 +164,30 @@
 @media (max-width: 768px) {
   .login-box {
     flex-direction: column;
-    width: 90%;
+    width: 95%;
     height: auto;
+    margin: 20px 0;
   }
   .login-left {
     padding: 30px;
+    width: 100%;
+    box-sizing: border-box;
   }
   .login-left img {
-    max-width: 200px;
+    max-width: 150px;
   }
   .login-right {
     width: 100%;
-    padding: 40px 25px;
+    padding: 30px 20px;
+    box-sizing: border-box;
+  }
+  .form-header h1 {
+    font-size: 24px;
+  }
+  .form-header p {
+    font-size: 13px;
+  }
+  .login-form input {
+    padding: 12px 16px;
   }
 }

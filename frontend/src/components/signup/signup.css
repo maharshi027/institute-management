@@ -154,12 +154,40 @@
     flex-direction: column;
     width: 95%;
     height: auto;
+    margin: 20px 0;
   }
   .signup-left {
-    display: none;
+    display: flex;
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+  }
+  .overlay-content img {
+    width: 50%;
+  }
+  .signup-left h1 {
+    font-size: 20px;
+  }
+  .signup-left p {
+    font-size: 14px;
   }
   .signup-right {
     width: 100%;
     padding: 30px 20px;
+    box-sizing: border-box;
+  }
+  .form-header h1 {
+    font-size: 24px;
+  }
+  .form-header p {
+    font-size: 13px;
+  }
+  .signup-form input {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+  .signup-btn {
+    padding: 12px;
+    font-size: 15px;
   }
 }

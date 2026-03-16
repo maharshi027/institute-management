@@ -155,4 +155,54 @@
 
 .outlet {
   padding: 10px;
+  overflow-y: auto;
+  height: 87vh;
+}
+
+.hamburger-menu {
+  display: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.top-bar-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    width: 100%;
+    border-radius: 0;
+  }
+  
+  .nav-container {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 250px;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.3s ease-in-out;
+  }
+  
+  .nav-container.open {
+    left: 0;
+  }
+  
+  .main-container {
+    width: 100%;
+  }
+
+  .top-bar {
+    justify-content: space-between;
+    padding: 10px 20px;
+  }
+
+  .hamburger-menu {
+    display: flex;
+    align-items: center;
+  }
 }

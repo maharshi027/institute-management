@@ -13,7 +13,7 @@ import { BsFillTelephoneOutboundFill } from "react-icons/bs";
 import { RiContactsFill } from "react-icons/ri";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = ({ setIsSidebarOpen }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const logoutHandler = () => {
@@ -39,6 +39,7 @@ const Sidebar = () => {
               : "menu-link"
           }
           to="/dashboard/home"
+          onClick={() => setIsSidebarOpen(false)}
         >
           {" "}
           <ImHome className="menu-icon" />
@@ -51,6 +52,7 @@ const Sidebar = () => {
               : "menu-link"
           }
           to="/dashboard/batches"
+          onClick={() => setIsSidebarOpen(false)}
         >
           {" "}
           <FaBookReader className="menu-icon" />
@@ -63,6 +65,7 @@ const Sidebar = () => {
               : "menu-link"
           }
           to="/dashboard/add-batch"
+          onClick={() => setIsSidebarOpen(false)}
         >
           {" "}
           <MdLibraryAdd className="menu-icon" />
@@ -75,6 +78,7 @@ const Sidebar = () => {
               : "menu-link"
           }
           to="/dashboard/students"
+          onClick={() => setIsSidebarOpen(false)}
         >
           {" "}
           <PiStudentFill className="menu-icon" />
@@ -87,6 +91,7 @@ const Sidebar = () => {
               : "menu-link"
           }
           to="/dashboard/add-student"
+          onClick={() => setIsSidebarOpen(false)}
         >
           {" "}
           <MdGroupAdd className="menu-icon" />
@@ -99,6 +104,7 @@ const Sidebar = () => {
               : "menu-link"
           }
           to="/dashboard/collect-fee"
+          onClick={() => setIsSidebarOpen(false)}
         >
           {" "}
           <HiDocumentCurrencyRupee className="menu-icon" />
@@ -111,6 +117,7 @@ const Sidebar = () => {
               : "menu-link"
           }
           to="/dashboard/payment-history"
+          onClick={() => setIsSidebarOpen(false)}
         >
           {" "}
           <FaHistory className="menu-icon" />
