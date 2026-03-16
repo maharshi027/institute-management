@@ -5,7 +5,7 @@ import signupImg from "../../assets/inst.webp";
 import { Circles } from "react-loading-icons";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-
+import { FiEye, FiEyeOff } from "react-icons/fi";
 const Signup = () => {
   const navigate = useNavigate();
 
@@ -13,6 +13,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const submitHandler = async (event) => {
@@ -95,15 +96,30 @@ const Signup = () => {
                 onChange={(e) => setPhone(e.target.value)}
                 type="text"
                 placeholder="Phone Number"
+                maxLength={10}
+                minLength={10} 
                 required
               />
-              <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                placeholder="Password"
-                required
-              />
+              <div className="password-input-wrapper">
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  maxLength={12}
+                  minLength={6}
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                  title="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-toggle-btn"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                </button>
+              </div>
             </div>
 
             <button className="signup-btn" type="submit" disabled={loading}>
