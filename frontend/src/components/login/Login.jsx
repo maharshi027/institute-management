@@ -88,9 +88,11 @@ const Login = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   style={{
                     position: "absolute",
-                    right: "10px",
-                    top: "14px",
-                    cursor: "pointer"
+                    right: "15px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    fontSize: "22px"
                   }}
                 >
                   {showPassword ? "🙈" : "👁"}
