@@ -100,7 +100,8 @@ export default function AddStudent() {
         );
       } catch (error) {
         setLoading(false);
-        toast.error("Something went wrong...");
+        const errMsg = error.response?.data?.error || error.response?.data?.msg || "Something went wrong...";
+        toast.error(errMsg);
       }
     } else {
       try {
@@ -127,7 +128,8 @@ export default function AddStudent() {
         fileRef.current.value = null;
       } catch (error) {
         setLoading(false);
-        toast.error("Something went wrong...");
+        const errMsg = error.response?.data?.error || error.response?.data?.msg || "Something went wrong...";
+        toast.error(errMsg);
       }
     }
   };

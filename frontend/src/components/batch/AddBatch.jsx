@@ -77,7 +77,8 @@ export default function AddBatch() {
         navigate(`/dashboard/batch-details/${location.state.batchData._id}`);
       } catch (error) {
         setLoading(false);
-        toast.error("Something went wrong...");
+        const errMsg = error.response?.data?.error || error.response?.data?.msg || "Something went wrong...";
+        toast.error(errMsg);
       }
     } else {
       try {
@@ -97,7 +98,8 @@ export default function AddBatch() {
         navigate("/dashboard/batches");
       } catch (error) {
         setLoading(false);
-        toast.error("Something went wrong...");
+        const errMsg = error.response?.data?.error || error.response?.data?.msg || "Something went wrong...";
+        toast.error(errMsg);
       }
     }
   };
