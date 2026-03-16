@@ -99,7 +99,7 @@ const Signup = () => {
                 minLength={10} 
                 required
               />
-              <div className="password-input-wrapper">
+              <div style={{ position: "relative", width: "90%" }}>
                 <input
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -110,16 +110,16 @@ const Signup = () => {
                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                   title="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character"
                   required
+                  style={{ width: "100%", boxSizing: "border-box" }}
                 />
                 <span
                   onClick={() => setShowPassword(!showPassword)}
                   style={{
                     position: "absolute",
-                    right: "15px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
+                    right: "10px",
+                    top: "14px",
                     cursor: "pointer",
-                    fontSize: "22px"
+                    fontSize: "18px"
                   }}
                 >
                   {showPassword ? "🙈" : "👁"}

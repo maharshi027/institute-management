@@ -76,7 +76,7 @@ const Login = () => {
                 required
               />
 
-              <div className="password-input-wrapper">
+              <div style={{ position: "relative", width: "100%" }}>
                 <input
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -88,11 +88,10 @@ const Login = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   style={{
                     position: "absolute",
-                    right: "15px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
+                    right: "10px",
+                    top: "14px",
                     cursor: "pointer",
-                    fontSize: "22px"
+                    fontSize: "18px"
                   }}
                 >
                   {showPassword ? "🙈" : "👁"}
