@@ -10,6 +10,18 @@ const Home = () => {
   const [latestStudent, setLatestStudent] = useState([]);
   const [latestTransaction, setLatestTransaction] = useState([]);
   useEffect(() => {
+    // 1. Try to load cached data immediately for instant UI rendering
+    const cachedData = localStorage.getItem("homeData");
+    if (cachedData) {
+      const data = JSON.parse(cachedData);
+      setTotalBatches(data.totalBatch || 0);
+      setTotalStudents(data.totalStudent || 0);
+      setTotalFee(data.totalFee || 0);
+      setLatestStudent(data.latestStudent || []);
+      setLatestTransaction(data.latestTransaction || []);
+    }
+    
+    // 2. Fetch fresh data from API in background (stale-while-revalidate)
     getHomeDetails();
   }, []);
   const getHomeDetails = async () => {
@@ -26,6 +38,9 @@ const Home = () => {
         setTotalFee(res.data.totalFee);
         setLatestStudent(res.data.latestStudent);
         setLatestTransaction(res.data.latestTransaction);
+        
+        // Save fresh data to cache for next time
+        localStorage.setItem("homeData", JSON.stringify(res.data));
       })
       .catch((err) => {
         console.log(err);

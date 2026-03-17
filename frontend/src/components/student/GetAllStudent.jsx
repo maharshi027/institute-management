@@ -8,6 +8,13 @@ const GetAllStudent = () => {
   const [studentList, setStudentList] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
+    // 1. Try to load cached data immediately for instant UI rendering
+    const cachedData = localStorage.getItem("studentsData");
+    if (cachedData) {
+      setStudentList(JSON.parse(cachedData));
+    }
+
+    // 2. Fetch fresh data from API in background (stale-while-revalidate)
     getStudents();
   }, []);
 
@@ -20,6 +27,9 @@ const GetAllStudent = () => {
       })
       .then((res) => {
         setStudentList(res.data.studentList);
+        
+        // Save fresh data to cache for next time
+        localStorage.setItem("studentsData", JSON.stringify(res.data.studentList));
       })
       .catch((err) => {
         console.log(err);

@@ -8,6 +8,13 @@ const Batches = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // 1. Try to load cached data immediately for instant UI rendering
+    const cachedData = localStorage.getItem("batchesData");
+    if (cachedData) {
+      setBatchList(JSON.parse(cachedData));
+    }
+
+    // 2. Fetch fresh data from API in background (stale-while-revalidate)
     getBatches();
   }, []);
 
@@ -20,6 +27,9 @@ const Batches = () => {
       })
       .then((res) => {
         setBatchList(res.data.batches);
+        
+        // Save fresh data to cache for next time
+        localStorage.setItem("batchesData", JSON.stringify(res.data.batches));
       })
       .catch((err) => {
         console.log(err);
