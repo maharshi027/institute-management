@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { Log } from "../models/logs.model.js";
 import { upload } from "../middleware/multer.middleware.js";
 import { createLog } from "../utils/logger.js";
+import { verifyJWT } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
@@ -32,7 +33,10 @@ router.post("/signup", upload.none(), async (req, res) => {
 
     await createLog(req, email, "SIGNUP", savedUser._id);
 
-    return res.status(201).json({ newInstitute: savedUser });
+    const userResponse = savedUser.toObject();
+    delete userResponse.password;
+
+    return res.status(201).json({ newInstitute: userResponse });
   } catch (error) {
     console.log("ERROR:", error);
     return res.status(500).json({ error: "Server error" });
@@ -83,9 +87,9 @@ router.post("/login", upload.none(), async (req, res) => {
   }
 });
 
-router.get("/activity-logs", async (req, res) => {
+router.get("/activity-logs", verifyJWT, async (req, res) => {
   try {
-    const logs = await Log.find().sort({ createdAt: -1 }).limit(50);
+    const logs = await Log.find({ userId: req.user.userId }).sort({ createdAt: -1 }).limit(50);
     res.status(200).json(logs);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch logs" });

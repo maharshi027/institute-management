@@ -45,10 +45,6 @@ const Signup = () => {
         toast.error("Server is taking too long to respond");
       } else {
         toast.error("Error: Please try again.");
-        setInstituteName("");
-        setEmail("");
-        setPhone("");
-        setPassword("");
       }
 
       console.error("Signup Error:", error);
@@ -99,7 +95,7 @@ const Signup = () => {
                 minLength={10} 
                 required
               />
-              <div style={{ position: "relative", width: "90%" }}>
+              <div style={{ position: "relative", width: "100%" }}>
                 <input
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

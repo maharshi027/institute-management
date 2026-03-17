@@ -84,18 +84,18 @@
   flex-direction: column;
   gap: 15px;
   width: 100%;
-  align-items: center;
 }
 
 .signup-form input {
   padding: 12px 20px;
   border: 1.5px solid #eee;
   border-radius: 12px;
-  width: 90%;
+  width: 100%;
   font-size: 14px;
   outline: none;
   transition: all 0.3s ease;
   background-color: #f9f9f9;
+  box-sizing: border-box;
 }
 
 .signup-form input:focus {
@@ -105,8 +105,7 @@
 }
 
 .signup-btn {
-  width: 90%;
-  align-self: center;
+  width: 100%;
   padding: 14px;
   border: none;
   border-radius: 12px;

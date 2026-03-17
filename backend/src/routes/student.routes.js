@@ -78,7 +78,7 @@ router.get("/all-students", verifyJWT, async (req, res) => {
 router.get("/student-details/:id", verifyJWT, async (req, res) => {
   const userId = req.user.userId;
   try {
-    const result = await Student.findById(req.params.id).select(
+    const result = await Student.findOne({ _id: req.params.id, userId: userId }).select(
       "_id userId studentName phone dob address batchId avatarUrl avatarId"
     );
 
