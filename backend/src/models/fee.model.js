@@ -7,7 +7,7 @@ const feeSchema = new Schema({
     userId : {type: String, required: true},
     amount : {type: Number, required: true},
     remarks: {type: String}
-},
-{timestamps: true})
+},{timestamps: true}
+)
 
 export const Fee = mongoose.model("Fee", feeSchema);
