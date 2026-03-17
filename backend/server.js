@@ -34,6 +34,11 @@ app.use("/student", studentRouter);
 app.use("/fee", feeRouter);
 app.use("/", homeRouter);
 
+// Simple ping route to keep the server awake
+app.get("/ping", (req, res) => {
+  res.status(200).send("Server is awake");
+});
+
 
 app.listen(port, () => {
   console.log(`🚀 Server running on port ${port}...`);
